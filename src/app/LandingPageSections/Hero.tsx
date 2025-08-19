@@ -1,10 +1,12 @@
+"use client";
+
 import { motion } from "framer-motion";
 import Image from "next/image";
 import M6 from "../../../public/bg/bg1.png";
 
 export default function HeroSection() {
   return (
-    <div className="h-screen w-full border relative ">
+    <div className="h-screen w-full  relative -mt-15">
       <Image
         src={M6}
         alt="model1"
@@ -13,12 +15,12 @@ export default function HeroSection() {
         priority
       />
 
-      <motion.div className="w-[95%] md:w-[80%] border mx-auto flex justify-center flex-col  items-center h-full relative">
+      <div className="w-[95%] md:w-[80%]  mx-auto flex justify-center flex-col   items-center h-full relative">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-4xl md:text-5xl lg:text-6xl text-center lg:w-[50%] mb-1"
+          className="text-4xl md:text-5xl lg:text-6xl text-center lg:w-[50%] mb-1 text-white"
         >
           Find the Perfect <span className="text-green-600">Gym </span>&
           <span className="text-fuchsia-600">Trainer</span> Near You.
@@ -41,9 +43,9 @@ export default function HeroSection() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
-            className="px-3 py-2 cursor-pointer  rounded-md font-bold text-xl border-emerald-800 border-2 bg-green-700 "
+            className="px-3 py-2 cursor-pointer  rounded-md font-bold text-xl border-emerald-800 border-2 bg-green-700 text-white"
           >
-            Find Gyms
+            Find GYMs
           </motion.button>
           <motion.button
             whileHover={{ scale: 1.05 }}
@@ -53,7 +55,7 @@ export default function HeroSection() {
             Join as a Trainer
           </motion.button>
         </motion.div>
-      </motion.div>
+      </div>
     </div>
   );
 }
