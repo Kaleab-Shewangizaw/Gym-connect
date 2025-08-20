@@ -1,4 +1,5 @@
 import { Instagram } from "lucide-react";
+import Link from "next/link";
 import { BsLinkedin, BsTwitterX } from "react-icons/bs";
 
 export default function FooterSection() {
@@ -11,12 +12,12 @@ export default function FooterSection() {
             Start your fitness journey today!
           </h2>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
+            <Link
               href="/gyms"
               className="px-6 py-2 bg-blue-600 rounded text-white font-semibold hover:bg-blue-700 transition"
             >
               Find a Gym
-            </a>
+            </Link>
             <a
               href="/list-gym"
               className="px-6 py-2 bg-green-600 rounded text-white font-semibold hover:bg-green-700 transition"
