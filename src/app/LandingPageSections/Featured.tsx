@@ -146,15 +146,16 @@ export default function FeaturedSection() {
             {trainers.map((trainer) => (
               <div
                 key={trainer.name}
-                className="bg-gray-800 text-white rounded-lg shadow p-4 flex flex-col items-center"
+                className=" text-white rounded-lg shadow p-4 flex flex-col items-center"
               >
-                <Image
-                  src={trainer.image}
-                  alt={trainer.name}
-                  width={100}
-                  height={100}
-                  className="rounded-full object-cover mb-3"
-                />
+                <div className="relative w-50 h-100 rounded-md  overflow-hidden">
+                  <Image
+                    src={trainer.image}
+                    alt={trainer.name}
+                    fill
+                    className="object-cover "
+                  />
+                </div>
                 <h4 className="font-bold text-lg mb-1">{trainer.name}</h4>
                 <div className="flex flex-wrap gap-2 justify-center">
                   {trainer.skills.map((skill) => (
