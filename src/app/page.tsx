@@ -2,6 +2,7 @@ import FeaturedSection from "./LandingPageSections/Featured";
 import HeroSection from "./LandingPageSections/Hero";
 import HowItWorksSection from "./LandingPageSections/HowItWorks";
 import HeroNavbar from "./LandingPageSections/Navbar";
+import WhyUsSection from "./LandingPageSections/WhyUs";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <HeroSection />
       <HowItWorksSection />
       <FeaturedSection />
+      <WhyUsSection />
     </div>
   );
 }
