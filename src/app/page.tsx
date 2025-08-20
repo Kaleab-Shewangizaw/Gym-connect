@@ -1,4 +1,5 @@
 import FeaturedSection from "./LandingPageSections/Featured";
+import FooterSection from "./LandingPageSections/Footer";
 import HeroSection from "./LandingPageSections/Hero";
 import HowItWorksSection from "./LandingPageSections/HowItWorks";
 import HeroNavbar from "./LandingPageSections/Navbar";
@@ -14,6 +15,7 @@ export default function Home() {
       <FeaturedSection />
       <WhyUsSection />
       <TestimonialsSection />
+      <FooterSection />
     </div>
   );
 }
