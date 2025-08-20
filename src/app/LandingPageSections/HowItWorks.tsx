@@ -7,7 +7,7 @@ import { useEffect, useRef } from "react";
 
 export default function HowItWorksSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(sectionRef, { once: true, margin: "-150px" });
+  const inView = useInView(sectionRef, { once: false, margin: "-300px" });
   const controls = useAnimation();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function HowItWorksSection() {
         <motion.h2
           initial={{ opacity: 0, y: -50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 2 }}
+          transition={{ duration: 1 }}
           className="text-3xl font-bold text-center mb-10"
         >
           How It Works

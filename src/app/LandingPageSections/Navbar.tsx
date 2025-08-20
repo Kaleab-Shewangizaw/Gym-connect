@@ -9,7 +9,7 @@ export default function HeroNavbar() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
-      className="flex items-end justify-between py-2 px-2 w-[95%] md:w-[80%] z-10  mx-auto  sticky top-0"
+      className="flex items-end justify-between py-2 px-2 w-[95%] md:w-[80%] z-10  mx-auto  sticky top-0 bg-black/60 rounded-md"
     >
       <div className="text-3xl  relative px-1 py-1.5 overflow-hidden bg-green-700 rounded-tr-md rounded-br-xl rounded-tl-xl ">
         <BiDumbbell className="rotate-z-30 text-white" />
