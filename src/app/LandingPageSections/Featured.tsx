@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Star } from "lucide-react";
 import Image from "next/image";
@@ -133,9 +136,13 @@ export default function FeaturedSection() {
           </div>
           <div className="flex justify-center mt-8">
             <Link href="/gyms">
-              <button className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 font-semibold transition">
-                View All Gyms
-              </button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+                className="px-3 py-2 cursor-pointer  rounded-sm font-bold text-lg border-emerald-800 border-2 bg-green-700 text-white"
+              >
+                View all GYMs
+              </motion.button>
             </Link>
           </div>
         </div>
@@ -148,7 +155,7 @@ export default function FeaturedSection() {
                 key={trainer.name}
                 className=" text-white rounded-lg shadow p-4 flex flex-col items-center"
               >
-                <div className="relative w-50 h-100 rounded-md  overflow-hidden">
+                <div className="relative w-60 h-100 rounded-md  overflow-hidden">
                   <Image
                     src={trainer.image}
                     alt={trainer.name}
