@@ -2,7 +2,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { BiDumbbell } from "react-icons/bi";
-import { ModeToggle } from "@/Components/ModeToggle";
 
 export default function HeroNavbar() {
   return (
@@ -41,12 +40,12 @@ export default function HeroNavbar() {
           </li>
           <li>
             <Button variant="link" className="text-white  cursor-pointer">
-              Home
+              Pricing
             </Button>
           </li>
           <li>
             <Button variant="link" className="text-white  cursor-pointer">
-              Home
+              About
             </Button>
           </li>
         </ul>
