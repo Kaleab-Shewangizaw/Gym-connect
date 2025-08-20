@@ -1,4 +1,5 @@
 import HeroSection from "./LandingPageSections/Hero";
+import HowItWorksSection from "./LandingPageSections/HowItWorks";
 import HeroNavbar from "./LandingPageSections/Navbar";
 
 export default function Home() {
@@ -6,7 +7,7 @@ export default function Home() {
     <div className=" relative w-full flex flex-col">
       <HeroNavbar />
       <HeroSection />
-      <section className="h-400"></section>
+      <HowItWorksSection />
     </div>
   );
 }
