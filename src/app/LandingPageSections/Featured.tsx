@@ -1,26 +1,48 @@
+import { Button } from "@/components/ui/button";
+import { Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { BsStarFill } from "react-icons/bs";
 
 const gyms = [
   {
     name: "Iron Paradise",
     image: "/Gym-images/g1.jpg",
     rating: 4.8,
-    price: 15,
+    price: "15/mo",
+    desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim eius culpa, id aut mollitia eum.",
     available: true,
   },
   {
     name: "Flex Fitness",
     image: "/Gym-images/g2.jpg",
     rating: 4.6,
-    price: 12,
+    price: "12/mo",
+    desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim eius culpa, id aut mollitia eum.",
     available: false,
   },
   {
     name: "Powerhouse Gym",
     image: "/Gym-images/g3.jpg",
     rating: 4.9,
-    price: 18,
+    price: "18/mo",
+    desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim eius culpa, id aut mollitia eum.",
+    available: true,
+  },
+  {
+    name: "Powerhous Gym",
+    image: "/Gym-images/g4.jpg",
+    rating: 4.9,
+    price: "18/mo",
+    desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim eius culpa, id aut mollitia eum.",
+    available: true,
+  },
+  {
+    name: "Powerhou Gym",
+    image: "/Gym-images/g5.jpg",
+    rating: 4.9,
+    price: "18/mo",
+    desc: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim eius culpa, id aut mollitia eum.",
     available: true,
   },
 ];
@@ -45,8 +67,8 @@ const trainers = [
 
 export default function FeaturedSection() {
   return (
-    <section className="py-16 pt-5">
-      <div className="max-w-5xl mx-auto px-4">
+    <section className="py-16 pt-5 w-[95%] md:w-[80%] mx-auto">
+      <div className="">
         <h2 className="text-3xl font-bold text-center text-white mb-10">
           Featured Gyms & Trainers
         </h2>
@@ -57,29 +79,54 @@ export default function FeaturedSection() {
             {gyms.map((gym) => (
               <div
                 key={gym.name}
-                className="bg-gray-800 rounded-lg shadow p-4 flex flex-col items-center text-white"
+                className="rounded-md overflow-hidden shadow-lg  cursor-pointer  bg-[#05310da2]  text-white "
               >
-                <Image
-                  src={gym.image}
-                  alt={gym.name}
-                  width={200}
-                  height={120}
-                  className="rounded-md object-cover mb-3"
-                />
-                <h4 className="font-bold text-lg mb-1">{gym.name}</h4>
-                <div className="flex items-center mb-1">
-                  <span className="text-yellow-500 mr-1">★</span>
-                  <span className="font-medium">{gym.rating}</span>
+                <div className="relative w-full h-50">
+                  <Image
+                    src={gym.image}
+                    alt={gym.name}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
-                <div className="text-sm text-gray-400 mb-1">
-                  ${gym.price}/hour
-                </div>
-                <div
-                  className={`text-xs font-semibold ${
-                    gym.available ? "text-green-400" : "text-red-400"
-                  }`}
-                >
-                  {gym.available ? "Available" : "Full"}
+                <div className="py-2 px-3  flex flex-col items-end gap-2">
+                  <div className="flex items-center justify-between w-full ">
+                    <h4 className="text-lg font-bold   text-gray-200">
+                      {gym.name}
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      <BsStarFill className="text-yellow-500 text-lg " />{" "}
+                      <p className="text-gray-300 text-sm flex items-center font-bold">
+                        {" "}
+                        {gym.rating}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-gray-300 text-sm">{gym.desc}</p>
+                  <h1 className="font-bold w-full">
+                    Price: <span className="font-normal">${gym.price}</span>
+                  </h1>
+                  <div className="flex justify-between items-center w-full mt-1">
+                    <div>
+                      {gym.available ? (
+                        <p className="text-sm font-bold text-green-200">
+                          Slots Available!
+                        </p>
+                      ) : (
+                        <p className="text-sm font-bold text-red-300">
+                          All slots occupied.
+                        </p>
+                      )}
+                    </div>
+                    <div className="flex items-end gap-2">
+                      <Button variant="ghost">
+                        <Star />{" "}
+                      </Button>
+
+                      <Button variant="outline">Visit</Button>
+                      <Button>Book</Button>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}

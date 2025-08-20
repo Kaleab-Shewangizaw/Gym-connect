@@ -38,7 +38,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="flex gap-20"
+          className="flex gap-20 flex-wrap justify-center gap-y-5"
         >
           <motion.button
             whileHover={{ scale: 1.05 }}
@@ -53,6 +53,13 @@ export default function HeroSection() {
             className="px-3 py-2 cursor-pointer border-2 rounded-md font-bold text-xl text-green-500 border-emerald-800"
           >
             Join as a Trainer
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
+            className="px-3 py-2 cursor-pointer border-2 rounded-md font-bold text-xl text-green-500 border-emerald-800"
+          >
+            Join as a GYM Owner
           </motion.button>
         </motion.div>
       </div>
