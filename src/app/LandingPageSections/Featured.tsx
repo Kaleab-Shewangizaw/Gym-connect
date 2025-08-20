@@ -45,9 +45,9 @@ const trainers = [
 
 export default function FeaturedSection() {
   return (
-    <section className="py-16 bg-gray-50 dark:bg-gray-900">
+    <section className="py-16 pt-5">
       <div className="max-w-5xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-10">
+        <h2 className="text-3xl font-bold text-center text-white mb-10">
           Featured Gyms & Trainers
         </h2>
         {/* Gyms Grid */}
@@ -57,7 +57,7 @@ export default function FeaturedSection() {
             {gyms.map((gym) => (
               <div
                 key={gym.name}
-                className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 flex flex-col items-center"
+                className="bg-gray-800 rounded-lg shadow p-4 flex flex-col items-center text-white"
               >
                 <Image
                   src={gym.image}
@@ -71,12 +71,12 @@ export default function FeaturedSection() {
                   <span className="text-yellow-500 mr-1">★</span>
                   <span className="font-medium">{gym.rating}</span>
                 </div>
-                <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">
+                <div className="text-sm text-gray-400 mb-1">
                   ${gym.price}/hour
                 </div>
                 <div
                   className={`text-xs font-semibold ${
-                    gym.available ? "text-green-600" : "text-red-500"
+                    gym.available ? "text-green-400" : "text-red-400"
                   }`}
                 >
                   {gym.available ? "Available" : "Full"}
@@ -99,7 +99,7 @@ export default function FeaturedSection() {
             {trainers.map((trainer) => (
               <div
                 key={trainer.name}
-                className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 flex flex-col items-center"
+                className="bg-gray-800 text-white rounded-lg shadow p-4 flex flex-col items-center"
               >
                 <Image
                   src={trainer.image}
@@ -113,7 +113,7 @@ export default function FeaturedSection() {
                   {trainer.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 px-2 py-1 rounded text-xs font-medium"
+                      className="bg-blue-900 text-blue-300 px-2 py-1 rounded text-xs font-medium"
                     >
                       {skill}
                     </span>
