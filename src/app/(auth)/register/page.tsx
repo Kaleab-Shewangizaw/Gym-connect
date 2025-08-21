@@ -13,8 +13,10 @@ import {
   Calendar,
   HeartPulse,
   Award,
+  Cake,
 } from "lucide-react";
 import { BsGoogle, BsFacebook } from "react-icons/bs";
+import { FaBirthdayCake } from "react-icons/fa";
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -54,7 +56,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-950 flex items-center justify-center p-4 relative">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-950 flex items-center justify-center px-4 py-2 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-gray-900/70 via-gray-900/50 to-gray-900/80 -z-10"></div>
 
       {/* Floating Elements */}
@@ -113,7 +115,7 @@ export default function RegisterPage() {
 
         {/* Form Card */}
         <motion.div
-          className="bg-gray-800/70 backdrop-blur-md rounded-xl shadow-xl border border-gray-700/50 p-6"
+          className="bg-gray-800/70 backdrop-blur-md rounded-xl shadow-xl border border-gray-700/50 px-6 py-3"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
@@ -137,7 +139,7 @@ export default function RegisterPage() {
                 {[
                   { value: "member", label: "Member" },
                   { value: "trainer", label: "Trainer" },
-                  { value: "owner", label: "Owner" },
+                  { value: "owner", label: "Gym Owner" },
                 ].map((type) => (
                   <button
                     key={type.value}
@@ -237,7 +239,7 @@ export default function RegisterPage() {
 
             {/* Date of Birth */}
             <div className="relative">
-              <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <FaBirthdayCake className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
                 type="date"
                 name="dob"

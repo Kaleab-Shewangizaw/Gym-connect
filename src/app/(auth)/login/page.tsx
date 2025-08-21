@@ -3,7 +3,15 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import Link from "next/link";
-import { Eye, EyeOff, Dumbbell, Mail, Lock } from "lucide-react";
+import {
+  Eye,
+  EyeOff,
+  Dumbbell,
+  Mail,
+  Lock,
+  HeartPulse,
+  Award,
+} from "lucide-react";
 import { BsGoogle, BsFacebook } from "react-icons/bs";
 
 export default function LoginPage() {
@@ -22,6 +30,16 @@ export default function LoginPage() {
     });
   };
 
+  const floatingAnimation = {
+    animate: {
+      y: [0, -10, 0],
+      transition: {
+        duration: 3,
+        repeat: Infinity,
+        ease: ["easeInOut"],
+      },
+    },
+  };
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle login logic here
@@ -29,7 +47,30 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-950 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-950 flex items-center justify-center p-4 relative">
+      <motion.div
+        className="absolute top-20 left-10 text-green-400 opacity-30"
+        variants={floatingAnimation}
+        animate="animate"
+      >
+        <Dumbbell size={40} />
+      </motion.div>
+      <motion.div
+        className="absolute top-1/3 right-20 text-fuchsia-400 opacity-30"
+        variants={floatingAnimation}
+        animate="animate"
+        style={{ animationDelay: "1s" }}
+      >
+        <HeartPulse size={35} />
+      </motion.div>
+      <motion.div
+        className="absolute bottom-40 left-20 text-blue-400 opacity-30"
+        variants={floatingAnimation}
+        animate="animate"
+        style={{ animationDelay: "2s" }}
+      >
+        <Award size={30} />
+      </motion.div>
       {/* Animated background elements */}
       <div className="absolute top-20 right-10 w-0 h-0 shadow-[0_0_300px_100px_rgba(0,131,54,0.15)] animate-pulse-slow"></div>
       <div
