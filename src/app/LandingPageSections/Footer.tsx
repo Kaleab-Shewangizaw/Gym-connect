@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Instagram, Heart } from "lucide-react";
-
-import { BsLinkedin, BsTwitterX } from "react-icons/bs";
+import { Instagram, Heart, Dumbbell } from "lucide-react";
+import Link from "next/link";
+import { BsLinkedin, BsTwitterX, BsInstagram } from "react-icons/bs";
 
 export default function FooterSection() {
   // Animation variants
@@ -24,7 +24,7 @@ export default function FooterSection() {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring" as const,
+        type: "spring",
         stiffness: 100,
         damping: 10,
       },
@@ -32,7 +32,7 @@ export default function FooterSection() {
   };
 
   return (
-    <footer className="relative text-gray-100 pt-16 pb-8 overflow-hidden">
+    <footer className="relative text-gray-100 pt-16 pb-8 overflow-hidden mt-12">
       {/* Animated background elements */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute bg-blue-600/20 w-0 shadow-[0px_0px_150px_40px_#0066ff] bottom-1/4 left-1/4 opacity-20 animate-pulse-slow"></div>
@@ -43,6 +43,37 @@ export default function FooterSection() {
       </div>
 
       <div className="max-w-6xl mx-auto px-4">
+        {/* Footer Logo */}
+        <motion.div
+          className="flex justify-center mb-8"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.7 }}
+        >
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="flex items-center gap-2 cursor-pointer"
+          >
+            <motion.div
+              initial={{ rotate: -30 }}
+              animate={{ rotate: 0 }}
+              transition={{ type: "spring", stiffness: 200, damping: 10 }}
+              className="p-2 bg-gradient-to-br from-green-600 to-emerald-700 rounded-lg"
+            >
+              <Dumbbell className="text-white w-6 h-6" />
+            </motion.div>
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="text-white font-bold text-2xl bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent"
+            >
+              GymConnect
+            </motion.span>
+          </motion.div>
+        </motion.div>
+
         {/* Call to Action */}
         <motion.div
           className="text-center mb-12"
@@ -136,17 +167,17 @@ export default function FooterSection() {
           >
             {[
               {
-                icon: <Instagram className="w-6 h-6" />,
+                icon: <BsInstagram className="w-5 h-5" />,
                 color: "hover:text-pink-400",
                 label: "Instagram",
               },
               {
-                icon: <BsTwitterX className="text-lg" />,
+                icon: <BsTwitterX className="w-5 h-5" />,
                 color: "hover:text-blue-400",
                 label: "Twitter",
               },
               {
-                icon: <BsLinkedin className="w-6 h-6" />,
+                icon: <BsLinkedin className="w-5 h-5" />,
                 color: "hover:text-blue-500",
                 label: "LinkedIn",
               },

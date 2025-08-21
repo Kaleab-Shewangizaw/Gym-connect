@@ -14,11 +14,13 @@ import {
   HeartPulse,
 } from "lucide-react";
 import M6 from "../../../public/bg/bg1.png";
-import M7 from "../../../public/bg/bg2.png"; // Add another background image
-import M8 from "../../../public/bg/bg1.png"; // Add another background image
+import M7 from "../../../public/bg/bg2.png";
+import M8 from "../../../public/bg/bg3.png";
+import M9 from "../../../public/bg/bg4.png";
+import M5 from "../../../public/bg/bg5.png";
 
 export default function HeroSection() {
-  const images = [M6, M7, M8];
+  const images = [M5, M6, M7, M8, M9];
   const [currentImage, setCurrentImage] = useState(0);
 
   useEffect(() => {
@@ -130,9 +132,9 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.7 }}
-            className="relative max-w-2xl mx-auto mb-12"
+            className="relative  max-w-2xl mx-auto mb-12"
           >
-            <div className="flex items-center bg-gray-800/80 backdrop-blur-sm rounded-full pl-6 pr-2 py-2 border border-gray-700 hover:border-green-500 transition-colors">
+            <div className="flex items-center  bg-gray-800/80 backdrop-blur-sm rounded-full pl-6 pr-2 py-2 border border-gray-700 hover:border-green-500 transition-colors">
               <Search className="text-gray-400 mr-3" size={20} />
               <input
                 type="text"
