@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import {
   Eye,
@@ -10,13 +10,10 @@ import {
   User,
   Mail,
   Lock,
-  Calendar,
   HeartPulse,
   Award,
-  Cake,
 } from "lucide-react";
 import { BsGoogle, BsFacebook } from "react-icons/bs";
-import { FaBirthdayCake } from "react-icons/fa";
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -238,17 +235,7 @@ export default function RegisterPage() {
             </div>
 
             {/* Date of Birth */}
-            <div className="relative">
-              <FaBirthdayCake className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                type="date"
-                name="dob"
-                value={formData.dob}
-                onChange={handleChange}
-                required
-                className="w-full pl-10 pr-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors"
-              />
-            </div>
+            {/*  */}
 
             {/* Submit Button */}
             <motion.button
@@ -308,4 +295,18 @@ export default function RegisterPage() {
       </motion.div>
     </div>
   );
+}
+
+{
+  /* <div className="relative">
+              <FaBirthdayCake className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input
+                type="date"
+                name="dob"
+                value={formData.dob}
+                onChange={handleChange}
+                required
+                className="w-full pl-10 pr-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors"
+              />
+            </div> */
 }

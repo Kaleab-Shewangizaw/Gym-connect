@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Instagram, Heart, Dumbbell } from "lucide-react";
+import { Heart, Dumbbell } from "lucide-react";
 import Link from "next/link";
 import { BsLinkedin, BsTwitterX, BsInstagram } from "react-icons/bs";
 
@@ -67,7 +67,7 @@ export default function FooterSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="text-white font-bold text-2xl bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent"
+              className="text-white font-bold text-2xl bg-gradient-to-r from-green-400 to-emerald-500 bg-clip-text "
             >
               GymConnect
             </motion.span>
