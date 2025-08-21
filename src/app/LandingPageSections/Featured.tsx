@@ -1,12 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useAnimation, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { BsInstagram, BsStarFill, BsTiktok, BsTwitterX } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa";
+import { useEffect, useRef } from "react";
 
 const gyms = [
   {
@@ -85,22 +86,61 @@ const trainers = [
 ];
 
 export default function FeaturedSection() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const section2Ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(sectionRef, { once: false, margin: "-300px" });
+  const inView2 = useInView(section2Ref, { once: false, margin: "-300px" });
+  const controls = useAnimation();
+
+  useEffect(() => {
+    if (inView) controls.start("visible");
+  }, [inView, controls]);
+  useEffect(() => {
+    if (inView2) controls.start("visible");
+  }, [inView2, controls]);
   return (
     <section className="py-16  w-[95%] md:w-[80%] mx-auto relative">
-      <div className="absolute bg-fuchsia-600 w-0 shadow-[0px_0px_300px_70px_#c800de] bottom-50 right-50"></div>
-      <div className="absolute bg-fuchsia-600 w-0 shadow-[0px_0px_300px_60px_#c800de] top-240 left-50"></div>
-      <div className="absolute bg-fuchsia-600 w-0 shadow-[0px_0px_300px_80px_#008236] top-180 right-50"></div>
-      <div className="absolute bg-fuchsia-600 w-0 shadow-[0px_0px_300px_70px_#008236] bottom-150 left-50"></div>
+      <div className="absolute  shadow-[0px_0px_300px_70px_#c800de] bottom-50 right-50"></div>
+      <div className="absolute  shadow-[0px_0px_300px_60px_#c800de] top-240 left-50"></div>
+      <div className="absolute  shadow-[0px_0px_300px_80px_#008236] top-180 right-50"></div>
+      <div className="absolute  shadow-[0px_0px_300px_70px_#008236] bottom-150 left-50"></div>
       <div className="">
-        <h2 className="text-3xl font-bold text-center text-white mb-5">
+        <motion.h2
+          className="text-3xl font-bold text-center text-white mb-5"
+          initial={{ opacity: 0, y: -50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+        >
           Featured Gyms & Trainers
-        </h2>
+        </motion.h2>
         {/* Gyms Grid */}
         <div className="mb-12">
-          <h3 className="text-xl font-semibold mb-6">Gyms</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          <motion.h3
+            className="text-xl font-semibold mb-6"
+            initial={{ opacity: 0, y: -50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+          >
+            Gyms
+          </motion.h3>
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"
+            ref={sectionRef}
+            initial="hidden"
+            animate={controls}
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.3 } },
+            }}
+          >
             {gyms.map((gym) => (
-              <div
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0 },
+                }}
                 key={gym.name}
                 className="rounded-md overflow-hidden shadow-lg  cursor-pointer  bg-[#05310da2]  text-white "
               >
@@ -151,9 +191,9 @@ export default function FeaturedSection() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
           <div className="flex justify-center mt-8">
             <Link href="/gyms">
               <motion.button
@@ -168,14 +208,35 @@ export default function FeaturedSection() {
         </div>
         {/* Trainers Grid */}
         <div>
-          <h3 className="text-xl font-semibold mb-6">Trainers</h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-3 gap-y-6">
+          <motion.h3
+            initial={{ opacity: 0, y: -50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="text-xl font-semibold mb-6"
+          >
+            Trainers
+          </motion.h3>
+          <motion.div
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-3 gap-y-6"
+            ref={section2Ref}
+            initial="hidden"
+            animate={controls}
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.3 } },
+            }}
+          >
             {trainers.map((trainer) => (
-              <div
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0 },
+                }}
                 key={trainer.name}
-                className=" text-white rounded-lg shadow  px-2 pb-2 border w-45 md:w-50  lg:w-55  flex flex-col items-center justify-between gap-2"
+                className=" text-white rounded-lg shadow  px-2 pb-2 border w-45 md:w-50  lg:w-60  flex flex-col items-center justify-between gap-2"
               >
-                <div className="relative w-45 md:w-50 md:h-90 h-60 lg:w-55 lg:h-95 rounded-md  overflow-hidden">
+                <div className="relative w-45 md:w-50 md:h-90 h-60 lg:w-60 lg:h-95 rounded-md  overflow-hidden">
                   <Image
                     src={trainer.image}
                     alt={trainer.name}
@@ -215,9 +276,9 @@ export default function FeaturedSection() {
                   <BsTwitterX />
                   <BsTiktok />
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
