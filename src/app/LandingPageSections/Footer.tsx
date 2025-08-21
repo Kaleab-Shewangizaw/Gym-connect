@@ -184,7 +184,7 @@ export default function FooterSection() {
             >
               <Heart className="w-4 h-4 fill-red-500 text-red-500" />
             </motion.div>
-            <span>by GymConnect Team</span>
+            <span>by Kal_X</span>
           </div>
           <div>
             © {new Date().getFullYear()} GymConnect. All rights reserved.

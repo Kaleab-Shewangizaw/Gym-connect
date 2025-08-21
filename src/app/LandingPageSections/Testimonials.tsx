@@ -130,10 +130,6 @@ export default function TestimonialsSection() {
                   },
                 },
               }}
-              whileHover={{
-                y: -5,
-                transition: { duration: 0.2 },
-              }}
               className={`rounded-xl p-6 flex flex-col justify-between h-full relative overflow-hidden border ${testimonial.borderColor} ${testimonial.bgColor} backdrop-blur-sm`}
             >
               {/* Quote icon */}
