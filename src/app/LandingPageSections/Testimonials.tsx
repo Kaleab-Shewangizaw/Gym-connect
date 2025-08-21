@@ -115,7 +115,7 @@ export default function TestimonialsSection() {
             visible: { transition: { staggerChildren: 0.15 } },
           }}
         >
-          {testimonials.map((testimonial, index) => (
+          {testimonials.map((testimonial) => (
             <motion.div
               key={testimonial.id}
               variants={{
