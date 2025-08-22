@@ -5,7 +5,13 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { MapPin, Star } from "lucide-react";
 import Image from "next/image";
-import { BsFacebook, BsInstagram, BsTiktok, BsTwitterX } from "react-icons/bs";
+import {
+  BsFacebook,
+  BsInstagram,
+  BsStarFill,
+  BsTiktok,
+  BsTwitterX,
+} from "react-icons/bs";
 import { useState } from "react";
 const gym = {
   name: "Iron Paradise",
@@ -48,9 +54,7 @@ export default function SingleGymPage() {
             fill
             className="object-cover transition-transform duration-500"
           />
-          {/* <div className="absolute bottom-4 left-4 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
-            <BsStarFill className="text-yellow-300" /> {gym.name}
-          </div> */}
+
           <div className="absolute bottom-4 left-4 bg-gray-900/80 text-white text-xl font-bold px-4 py-1 rounded-full flex items-center gap-1">
             {gym.name}
           </div>
@@ -94,17 +98,22 @@ export default function SingleGymPage() {
                 </span>
               ))}
             </div>
-            <div className=" bg-gray-900/80 text-white text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1">
-              <MapPin className="w-3 h-3" /> {gym.location}
+            <div className="flex gap-2">
+              <div className=" bg-gray-900/80 text-white text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1">
+                <MapPin className="w-3 h-3" /> {gym.location}
+              </div>
+              <div className=" bg-green-800/60 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
+                <BsStarFill className="text-yellow-300" /> {gym.rating}
+              </div>
             </div>
           </div>
 
           <div className="flex justify-between items-center">
-            <div className="flex gap-4">
+            <div className="flex gap-2">
               <div>
                 <Button
                   variant="ghost"
-                  className={`text-gray-300 hover:text-white  px-3 py-2 rounded-lg font-medium transition-colors relative ${
+                  className={`text-gray-300 hover:text-white  px-2 py-2 rounded-lg font-medium transition-colors relative ${
                     nav === "images"
                       ? "bg-green-600/70 hover:bg-green-600/70"
                       : ""
@@ -119,7 +128,7 @@ export default function SingleGymPage() {
               <div>
                 <Button
                   variant="ghost"
-                  className={`text-gray-300 hover:text-white  px-3 py-2 rounded-lg font-medium transition-colors relative ${
+                  className={`text-gray-300 hover:text-white  px-2 py-2 rounded-lg font-medium transition-colors relative ${
                     nav === "trainers"
                       ? "bg-green-600/70 hover:bg-green-600/70"
                       : ""
@@ -162,10 +171,10 @@ export default function SingleGymPage() {
           </div>
         </div>
         {nav === "images" && (
-          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 gap-3 mx-3 mb-7">
+          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 mx-3 mb-7">
             {gym.images.map((image) => (
               <div key={image} className="rounded-md overflow-hidden">
-                <div className="relative h-50 md:h-80 overflow-hidden">
+                <div className="relative h-55 md:h-80 overflow-hidden">
                   <Image
                     src={image}
                     alt="image"
