@@ -2,7 +2,7 @@
 
 import { motion, useAnimation, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Star, ArrowRight, MapPin, Calendar } from "lucide-react";
+import { ArrowRight, MapPin, Calendar, Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -264,7 +264,7 @@ export default function FeaturedSection() {
                         size="sm"
                         className="text-gray-300 border-gray-600 hover:bg-gray-800"
                       >
-                        <Star className="w-4 h-4 mr-1" /> Save
+                        <Heart className="w-4 h-4 mr-1" /> Save
                       </Button>
                       <Button
                         variant="outline"

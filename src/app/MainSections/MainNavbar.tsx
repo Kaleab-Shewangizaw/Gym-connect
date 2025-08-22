@@ -34,7 +34,7 @@ export default function MainNavbar() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        className={` fixed top-0 left-1/2 transform -translate-x-1/2 w-[95%] md:w-[90%]  z-50 transition-all duration-300 ${
+        className={` fixed top-0 left-1/2 transform -translate-x-1/2 w-[100%] md:w-[90%]  z-50 transition-all duration-300 ${
           isScrolled
             ? "bg-gray-900/90 backdrop-blur-md shadow-lg rounded-t-md border border-gray-800/50"
             : "bg-gray-900/70 backdrop-blur-sm rounded-t-md border border-gray-800/30"

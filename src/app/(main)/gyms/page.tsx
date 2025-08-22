@@ -2,7 +2,7 @@
 
 import { motion, useAnimation, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Star, MapPin, Search, Filter } from "lucide-react";
+import { MapPin, Search, Filter, Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { BsStarFill } from "react-icons/bs";
@@ -235,7 +235,7 @@ export default function GymsPage() {
                       size="sm"
                       className="text-gray-300 border-gray-600 hover:bg-gray-800"
                     >
-                      <Star className="w-4 h-4 mr-1" /> Save
+                      <Heart className="w-4 h-4 mr-1" /> Save
                     </Button>
                     <Link href={"/gyms/" + i}>
                       <Button
