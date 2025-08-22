@@ -101,7 +101,7 @@ export default function GymsPage() {
               <input
                 type="text"
                 placeholder="Search for gyms or locations..."
-                className="bg-transparent border-none outline-none text-white flex-grow pr-4 placeholder-gray-500"
+                className="bg-transparent border-none outline-none text-white flex-grow pr-4 placeholder-gray-500 text-sm"
               />
               <button className="bg-gradient-to-r from-green-500 to-green-700 text-white rounded-full px-3 py-1 flex items-center gap-2 hover:from-green-600 hover:to-green-800 transition-all">
                 <MapPin size={15} />

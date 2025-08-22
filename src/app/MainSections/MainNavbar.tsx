@@ -108,7 +108,7 @@ export default function MainNavbar() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-1 px-4 py-2 text-gray-300 hover:text-white font-medium rounded-lg transition-colors"
+              className="flex items-center gap-1 px-4 py-2 text-sm text-gray-300 hover:text-white font-medium rounded-lg transition-colors"
             >
               <LogOut className="w-4 h-4" />
               Log out
