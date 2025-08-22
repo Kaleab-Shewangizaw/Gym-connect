@@ -2,26 +2,16 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
-import { Dumbbell, Menu, X, LogIn, UserPlus } from "lucide-react";
-import { useState, useEffect } from "react";
-import Link from "next/link";
+import { Dumbbell, Menu, X, LogOut, User } from "lucide-react";
+import { useState } from "react";
 
-export default function HeroNavbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
+export default function MainNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const navItems = [
     { name: "Home", href: "#" },
     { name: "GYMs", href: "/gyms" },
-    { name: "Trainers", href: "#trainers" },
+    { name: "Trainers", href: "/trainers" },
     { name: "Pricing", href: "#pricing" },
     { name: "About", href: "#about" },
   ];
@@ -32,11 +22,9 @@ export default function HeroNavbar() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        className={`fixed top-4 left-1/2 transform -translate-x-1/2 w-[95%] md:w-[90%] max-w-6xl z-50 transition-all duration-300 ${
-          isScrolled
-            ? "bg-gray-900/90 backdrop-blur-md shadow-lg rounded-xl border border-gray-800/50"
-            : "bg-gray-900/70 backdrop-blur-sm rounded-xl border border-gray-800/30"
-        }`}
+        className={`mx-auto w-[95%] md:w-[90%]  z-50 transition-all duration-300 bg-gray-900/70 backdrop-blur-sm rounded-t-xl  border border-gray-800/30 
+          
+        `}
       >
         <div className="flex items-center justify-between px-4 py-3">
           {/* Logo */}
@@ -63,7 +51,7 @@ export default function HeroNavbar() {
           </motion.div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden md:flex items-center gap-4 ">
             {navItems.map((item, index) => (
               <motion.div
                 key={item.name}
@@ -74,13 +62,14 @@ export default function HeroNavbar() {
                 <Button
                   variant="ghost"
                   className="text-gray-300 hover:text-white hover:bg-gray-800/50 px-3 py-2 rounded-lg font-medium transition-colors relative group"
+                  onClick={() => {
+                    const link = document.createElement("a");
+                    link.href = item.href;
+                    link.click();
+                  }}
                 >
                   {item.name}
-                  <motion.div
-                    className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-500 transition-all duration-300 group-hover:w-full"
-                    initial={{ width: 0 }}
-                    whileHover={{ width: "100%" }}
-                  />
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-400 transition-all duration-300 group-hover:w-full"></span>
                 </Button>
               </motion.div>
             ))}
@@ -91,18 +80,17 @@ export default function HeroNavbar() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-1 px-4 py-2 text-gray-300 hover:text-white font-medium rounded-lg transition-colors"
+              className="flex items-center gap-1 px-2 py-2 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-medium rounded-full shadow-lg hover:shadow-green-700/30 transition-all"
             >
-              <LogIn className="w-4 h-4" />
-              Log in
+              <User className="text-lg" />
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-1 px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-medium rounded-lg shadow-lg hover:shadow-green-700/30 transition-all"
+              className="flex items-center gap-1 px-4 py-2 text-gray-300 hover:text-white font-medium rounded-lg transition-colors"
             >
-              <UserPlus className="w-4 h-4" />
-              Sign up
+              <LogOut className="w-4 h-4" />
+              Log out
             </motion.button>
           </div>
 
@@ -132,32 +120,29 @@ export default function HeroNavbar() {
             >
               <div className="px-4 py-3 space-y-2">
                 {navItems.map((item) => (
-                  <motion.div
+                  <motion.a
                     key={item.name}
+                    href={item.href}
                     className="block py-2 px-3 text-gray-300 hover:text-white hover:bg-gray-800/30 rounded-lg transition-colors"
                     whileHover={{ x: 5 }}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <Link href={item.href} className="w-full h-full z-200">
-                      {" "}
-                      {item.name}
-                    </Link>
-                  </motion.div>
+                    {item.name}
+                  </motion.a>
                 ))}
                 <div className="pt-4 border-t border-gray-800/50 space-y-3">
                   <motion.button
                     whileTap={{ scale: 0.95 }}
-                    className="w-full flex items-center justify-center gap-2 py-2 px-4 text-gray-300 hover:text-white font-medium rounded-lg bg-gray-800/50 transition-colors"
+                    className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-medium rounded-lg shadow-lg"
                   >
-                    <LogIn className="w-4 h-4" />
-                    Log in
+                    <User className="w-4 h-4" />
                   </motion.button>
                   <motion.button
                     whileTap={{ scale: 0.95 }}
-                    className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-medium rounded-lg shadow-lg"
+                    className="w-full flex items-center justify-center gap-2 py-2 px-4 text-gray-300 hover:text-white font-medium rounded-lg bg-gray-800/50 transition-colors"
                   >
-                    <UserPlus className="w-4 h-4" />
-                    Sign up
+                    <LogOut className="w-4 h-4" />
+                    Log out
                   </motion.button>
                 </div>
               </div>
