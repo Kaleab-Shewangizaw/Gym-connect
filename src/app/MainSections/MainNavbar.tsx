@@ -3,12 +3,20 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
 import { Dumbbell, Menu, X, LogOut, User } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 export default function MainNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const path = usePathname();
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const pathN = path.split("/")[1];
 
@@ -26,8 +34,11 @@ export default function MainNavbar() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        className={` fixed top-4 left-1/2 transform -translate-x-1/2 w-[95%] md:w-[90%]  z-50 transition-all duration-300 bg-gray-900/90 backdrop-blur-md shadow-lg rounded-t-xl border border-gray-800/50  
-        `}
+        className={` fixed top-0 left-1/2 transform -translate-x-1/2 w-[95%] md:w-[90%]  z-50 transition-all duration-300 ${
+          isScrolled
+            ? "bg-gray-900/90 backdrop-blur-md shadow-lg rounded-t-md border border-gray-800/50"
+            : "bg-gray-900/70 backdrop-blur-sm rounded-t-md border border-gray-800/30"
+        }`}
       >
         <div className="flex items-center justify-between px-4 py-3">
           {/* Logo */}
