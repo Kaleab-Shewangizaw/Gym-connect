@@ -4,9 +4,13 @@ import { Button } from "@/components/ui/button";
 
 import { Dumbbell, Menu, X, LogOut, User } from "lucide-react";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function MainNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const path = usePathname();
+
+  const pathN = path.split("/")[1];
 
   const navItems = [
     { name: "Home", href: "#" },
@@ -22,8 +26,7 @@ export default function MainNavbar() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        className={`mx-auto w-[95%] md:w-[90%]  z-50 transition-all duration-300 bg-gray-900/70 backdrop-blur-sm rounded-t-xl  border border-gray-800/30 
-          
+        className={` fixed top-4 left-1/2 transform -translate-x-1/2 w-[95%] md:w-[90%]  z-50 transition-all duration-300 bg-gray-900/90 backdrop-blur-md shadow-lg rounded-t-xl border border-gray-800/50  
         `}
       >
         <div className="flex items-center justify-between px-4 py-3">
@@ -51,17 +54,18 @@ export default function MainNavbar() {
           </motion.div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-4 ">
+          <div className="hidden md:flex items-center gap-1 ">
             {navItems.map((item, index) => (
               <motion.div
                 key={item.name}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
+                className="group flex  flex-col"
               >
                 <Button
                   variant="ghost"
-                  className="text-gray-300 hover:text-white hover:bg-gray-800/50 px-3 py-2 rounded-lg font-medium transition-colors relative group"
+                  className="text-gray-300 hover:text-white hover:bg-gray-800/50 px-3 py-2 rounded-lg font-medium transition-colors relative  "
                   onClick={() => {
                     const link = document.createElement("a");
                     link.href = item.href;
@@ -69,8 +73,14 @@ export default function MainNavbar() {
                   }}
                 >
                   {item.name}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-400 transition-all duration-300 group-hover:w-full"></span>
                 </Button>
+                <span
+                  className={`  mx-auto h-0.5 bg-green-400 transition-all duration-300 ${
+                    pathN === item.href.split("/")[1]
+                      ? "w-[80%] "
+                      : "w-0 group-hover:w-[80%] "
+                  }`}
+                ></span>
               </motion.div>
             ))}
           </div>
@@ -150,8 +160,6 @@ export default function MainNavbar() {
           )}
         </AnimatePresence>
       </motion.nav>
-
-      {/* Background overlay for mobile menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
