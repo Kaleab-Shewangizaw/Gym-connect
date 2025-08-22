@@ -127,13 +127,13 @@ export default function GymsPage() {
                   className="bg-[#1a232f] py-2 px-2 rounded-xl mt-1"
                 >
                   <DropdownMenuItem className="px-10 py-2 hover:bg-gray-600 text-sm rounded-xl">
-                    Name
+                    Name A - Z
                   </DropdownMenuItem>
                   <DropdownMenuItem className="px-10 py-2 hover:bg-gray-600 text-sm rounded-xl">
-                    Rating
+                    Rating &gt; 3.0
                   </DropdownMenuItem>
                   <DropdownMenuItem className="px-10 py-2 hover:bg-gray-600 text-sm rounded-xl">
-                    Price
+                    Price &lt; $10
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
