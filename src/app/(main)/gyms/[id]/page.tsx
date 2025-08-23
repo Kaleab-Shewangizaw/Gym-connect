@@ -4,13 +4,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Calendar, Heart, MapPin, Star, ChevronLeft } from "lucide-react";
 import Image from "next/image";
-import {
-  BsFacebook,
-  BsInstagram,
-  BsStarFill,
-  BsTiktok,
-  BsTwitterX,
-} from "react-icons/bs";
+import { BsInstagram, BsStarFill, BsTiktok, BsTwitterX } from "react-icons/bs";
 import { useState } from "react";
 import { FaFacebookF } from "react-icons/fa";
 import Link from "next/link";
