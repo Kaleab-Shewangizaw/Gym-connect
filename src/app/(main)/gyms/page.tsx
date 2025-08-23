@@ -6,7 +6,6 @@ import { MapPin, Search, Filter, Heart, Dumbbell } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { BsStarFill } from "react-icons/bs";
-import { FaDumbbell } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
 import {
   DropdownMenu,
