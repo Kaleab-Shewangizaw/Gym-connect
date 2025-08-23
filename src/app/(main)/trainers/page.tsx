@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
-import { Calendar, Filter, Search } from "lucide-react";
+import { Calendar, Filter, Search, MapPin } from "lucide-react";
 import Image from "next/image";
 import {
   BsFillLightningFill,
@@ -19,6 +19,7 @@ import {
   BsTwitterX,
 } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa";
+import { useState } from "react";
 
 const trainers = [
   {
@@ -28,6 +29,9 @@ const trainers = [
     skills: ["Strength Training", "HIIT", "Nutrition"],
     clients: 120,
     experience: "5 years",
+    location: "Downtown",
+    price: "$65/hr",
+    available: true,
   },
   {
     name: "Maya Lee",
@@ -36,6 +40,9 @@ const trainers = [
     skills: ["Yoga", "Pilates", "Meditation"],
     clients: 95,
     experience: "7 years",
+    location: "Westside",
+    price: "$70/hr",
+    available: true,
   },
   {
     name: "Jake Smith",
@@ -44,6 +51,9 @@ const trainers = [
     skills: ["Cardio", "CrossFit", "Endurance"],
     clients: 150,
     experience: "4 years",
+    location: "Eastside",
+    price: "$60/hr",
+    available: false,
   },
   {
     name: "Kebedech Chane",
@@ -52,6 +62,9 @@ const trainers = [
     skills: ["Bodybuilding", "Powerlifting", "Flexibility"],
     clients: 200,
     experience: "8 years",
+    location: "Northside",
+    price: "$75/hr",
+    available: true,
   },
   {
     name: "Demelew",
@@ -60,158 +73,284 @@ const trainers = [
     skills: ["Calisthenics", "Functional Training", "Mobility"],
     clients: 85,
     experience: "6 years",
+    location: "Southside",
+    price: "$65/hr",
+    available: true,
   },
 ];
 
-export default function TrainerPage() {
-  return (
-    <div className="text-white mt-16 pt-7 ">
-      <div className="mb-16">
-        <div className="flex justify-between items-center mb-8">
-          <h3 className="text-2xl font-semibold flex items-center gap-2">
-            <BsFillLightningFill className="text-green-400" /> Trainers
-          </h3>
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
 
-          <div className="flex gap-5 items-center">
-            {/* search bar */}
-            <div className="hidden md:flex items-center  bg-gray-800/80 backdrop-blur-sm rounded-full pl-3 pr-1 py-1 border border-gray-700 hover:border-green-500 transition-colors">
-              <Search className="text-gray-400 mr-3" size={15} />
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 100, damping: 12 },
+  },
+};
+
+export default function TrainerPage() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedFilter, setSelectedFilter] = useState("all");
+
+  const filteredTrainers = trainers.filter((trainer) => {
+    const matchesSearch =
+      trainer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      trainer.skills.some((skill) =>
+        skill.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+
+    const matchesFilter =
+      selectedFilter === "all" ||
+      (selectedFilter === "available" && trainer.available) ||
+      (selectedFilter === "male" &&
+        ["Alex Carter", "Jake Smith", "Demelew"].includes(trainer.name)) ||
+      (selectedFilter === "female" &&
+        ["Maya Lee", "Kebedech Chane"].includes(trainer.name));
+
+    return matchesSearch && matchesFilter;
+  });
+
+  return (
+    <div className="min-h-screen text-white mt-16 pt-7 bg-gradient-to-b from-gray-900 to-gray-950">
+      <div className="container mx-auto px-4 pb-16">
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row justify-between items-center mb-10">
+          <div className="flex items-center mb-4 md:mb-0">
+            <div className="bg-gradient-to-r from-green-500 to-green-700 p-2 rounded-full mr-3">
+              <BsFillLightningFill className="text-white text-xl" />
+            </div>
+            <h1 className="text-3xl font-bold">Expert Trainers</h1>
+          </div>
+
+          <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
+            {/* Search Bar */}
+            <div className="relative w-full md:w-64">
+              <Search
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                size={18}
+              />
               <input
                 type="text"
-                placeholder="Search for trainers"
-                className="bg-transparent border-none outline-none text-white flex-grow pr-4 placeholder-gray-500 text-sm"
+                placeholder="Search trainers..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-gray-800/80 backdrop-blur-sm rounded-full pl-10 pr-4 py-2.5 border border-gray-700 hover:border-green-500 focus:border-green-500 focus:outline-none transition-colors placeholder-gray-500"
               />
-              <button className="bg-gradient-to-r from-green-500 to-green-700 text-white rounded-full px-3 py-1 flex items-center gap-2 hover:from-green-600 hover:to-green-800 transition-all">
-                <BsPeople size={15} />
-                Search
-              </button>
             </div>
-            <button className="md:hidden bg-gradient-to-r from-green-500/50 to-green-700/50 text-white rounded-full p-2 flex items-center gap-2 hover:from-green-600 hover:to-green-800 transition-all">
-              <Search size={20} />
-            </button>
-            <div className="z-20">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="default"
-                    size="icon"
-                    className="bg-green-400/50 text-white px-10  hover:bg-green-400/80"
-                  >
-                    <Filter /> Filter
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  align="end"
-                  className="bg-[#1a232f] py-2 px-2 rounded-xl mt-1"
+
+            {/* Filter Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button className="bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white flex items-center gap-2">
+                  <Filter size={16} />
+                  Filter
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-gray-800 border border-gray-700 rounded-lg p-2 mt-2 min-w-[140px] z-50">
+                <DropdownMenuItem
+                  className={`p-2 rounded-md cursor-pointer ${
+                    selectedFilter === "all"
+                      ? "bg-gray-700"
+                      : "hover:bg-gray-700"
+                  }`}
+                  onClick={() => setSelectedFilter("all")}
                 >
-                  <DropdownMenuItem className="px-10 py-2 hover:bg-gray-600 text-sm rounded-xl">
-                    Name
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="px-10 py-2 hover:bg-gray-600 text-sm rounded-xl">
-                    Male
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="px-10 py-2 hover:bg-gray-600 text-sm rounded-xl">
-                    Female
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
+                  All Trainers
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className={`p-2 rounded-md cursor-pointer ${
+                    selectedFilter === "available"
+                      ? "bg-gray-700"
+                      : "hover:bg-gray-700"
+                  }`}
+                  onClick={() => setSelectedFilter("available")}
+                >
+                  Available
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className={`p-2 rounded-md cursor-pointer ${
+                    selectedFilter === "male"
+                      ? "bg-gray-700"
+                      : "hover:bg-gray-700"
+                  }`}
+                  onClick={() => setSelectedFilter("male")}
+                >
+                  Male
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className={`p-2 rounded-md cursor-pointer ${
+                    selectedFilter === "female"
+                      ? "bg-gray-700"
+                      : "hover:bg-gray-700"
+                  }`}
+                  onClick={() => setSelectedFilter("female")}
+                >
+                  Female
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
-          {trainers.map((trainer) => (
-            <motion.div
-              key={trainer.name}
-              variants={{
-                hidden: { opacity: 0, y: 20, scale: 0.95 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  scale: 1,
-                  transition: { type: "spring", stiffness: 100, damping: 12 },
-                },
-              }}
-              className="bg-gray-900/70 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-800 hover:border-green-400/30 transition-all duration-300 group flex flex-col"
-            >
-              <div className="relative h-85 overflow-hidden">
-                <Image
-                  src={trainer.image}
-                  alt={trainer.name}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute top-3 right-3 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
-                  <BsStarFill className="text-yellow-300" /> {trainer.rating}
+
+        {/* Results Count */}
+        <div className="mb-6 flex justify-between items-center">
+          <p className="text-gray-400">
+            Showing {filteredTrainers.length} of {trainers.length} trainers
+          </p>
+          <div className="flex items-center gap-2 text-sm text-gray-400">
+            <span className="h-2 w-2 rounded-full bg-green-500"></span>
+            <span>Available now</span>
+          </div>
+        </div>
+
+        {/* Trainers Grid */}
+        {filteredTrainers.length > 0 ? (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          >
+            {filteredTrainers.map((trainer) => (
+              <motion.div
+                key={trainer.name}
+                variants={itemVariants}
+                className="bg-gray-800/40 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-700 hover:border-green-400/30 transition-all duration-300 group flex flex-col"
+              >
+                <div className="relative h-60 overflow-hidden">
+                  <Image
+                    src={trainer.image}
+                    alt={trainer.name}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-3 right-3 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
+                    <BsStarFill className="text-yellow-300" /> {trainer.rating}
+                  </div>
+                  {!trainer.available && (
+                    <div className="absolute inset-0 bg-gray-900/70 flex items-center justify-center">
+                      <span className="bg-gray-800 text-white px-3 py-1 rounded-full text-sm">
+                        Not Available
+                      </span>
+                    </div>
+                  )}
                 </div>
-              </div>
 
-              <div className="p-4 flex flex-col flex-grow">
-                <h4 className="text-lg font-bold text-white group-hover:text-green-300 transition-colors mb-1">
-                  {trainer.name}
-                </h4>
-
-                <div className="flex items-center text-gray-400 text-sm mb-3">
-                  <span className="mr-3">{trainer.experience} experience</span>
-                  <span>• {trainer.clients}+ clients</span>
-                </div>
-
-                <div className="flex flex-wrap gap-1 mb-4">
-                  {trainer.skills.map((skill, i) => (
-                    <span
-                      key={i}
-                      className="bg-blue-900/40 text-blue-200 text-xs px-2 py-1 rounded"
-                    >
-                      {skill}
+                <div className="p-4 flex flex-col flex-grow">
+                  <div className="flex justify-between items-start mb-2">
+                    <h4 className="text-lg font-bold text-white group-hover:text-green-300 transition-colors">
+                      {trainer.name}
+                    </h4>
+                    <span className="text-green-400 font-semibold">
+                      {trainer.price}
                     </span>
-                  ))}
-                </div>
+                  </div>
 
-                <div className="mt-auto flex flex-col gap-2">
-                  <Button size="sm" className="bg-green-600 hover:bg-green-700">
-                    <Calendar className="w-4 h-4 mr-1" /> Book Session
-                  </Button>
+                  <div className="flex items-center text-gray-400 text-sm mb-3">
+                    <MapPin size={14} className="mr-1" />
+                    <span className="mr-3">{trainer.location}</span>
+                  </div>
 
-                  <div className="flex justify-between items-center">
+                  <div className="flex items-center text-gray-400 text-sm mb-3">
+                    <span className="mr-3">
+                      {trainer.experience} experience
+                    </span>
+                    <span>• {trainer.clients}+ clients</span>
+                  </div>
+
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    {trainer.skills.map((skill, i) => (
+                      <span
+                        key={i}
+                        className="bg-blue-900/40 text-blue-200 text-xs px-2.5 py-1 rounded-full"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="mt-auto flex flex-col gap-2">
                     <Button
-                      variant="outline"
                       size="sm"
-                      className="text-gray-300 border-gray-600 hover:bg-gray-800 text-xs"
+                      className="bg-green-600 hover:bg-green-700 flex items-center gap-1"
+                      disabled={!trainer.available}
                     >
-                      View Profile
+                      <Calendar className="w-4 h-4" />
+                      {trainer.available ? "Book Session" : "Not Available"}
                     </Button>
 
-                    <div className="flex gap-2 text-gray-400">
-                      <a
-                        href="#"
-                        className="hover:text-blue-400 transition-colors"
+                    <div className="flex justify-between items-center">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="text-gray-300 border-gray-600 hover:bg-gray-700 text-xs"
                       >
-                        <BsInstagram />
-                      </a>
-                      <a
-                        href="#"
-                        className="hover:text-blue-500 transition-colors"
-                      >
-                        <FaFacebookF />
-                      </a>
-                      <a
-                        href="#"
-                        className="hover:text-gray-300 transition-colors"
-                      >
-                        <BsTwitterX />
-                      </a>
-                      <a
-                        href="#"
-                        className="hover:text-pink-500 transition-colors"
-                      >
-                        <BsTiktok />
-                      </a>
+                        View Profile
+                      </Button>
+
+                      <div className="flex gap-2 text-gray-400">
+                        <a
+                          href="#"
+                          className="hover:text-pink-500 transition-colors p-1"
+                        >
+                          <BsInstagram size={16} />
+                        </a>
+                        <a
+                          href="#"
+                          className="hover:text-blue-500 transition-colors p-1"
+                        >
+                          <FaFacebookF size={16} />
+                        </a>
+                        <a
+                          href="#"
+                          className="hover:text-gray-300 transition-colors p-1"
+                        >
+                          <BsTwitterX size={16} />
+                        </a>
+                        <a
+                          href="#"
+                          className="hover:text-black transition-colors p-1"
+                        >
+                          <BsTiktok size={16} />
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        ) : (
+          <div className="text-center py-16">
+            <div className="bg-gray-800/40 rounded-xl p-8 max-w-md mx-auto">
+              <div className="text-5xl mb-4">🔍</div>
+              <h3 className="text-xl font-semibold mb-2">No trainers found</h3>
+              <p className="text-gray-400">
+                Try adjusting your search or filter to find what you're looking
+                for.
+              </p>
+              <Button
+                className="mt-4 bg-green-600 hover:bg-green-700"
+                onClick={() => {
+                  setSearchQuery("");
+                  setSelectedFilter("all");
+                }}
+              >
+                Clear Filters
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
