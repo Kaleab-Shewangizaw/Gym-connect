@@ -232,7 +232,7 @@ export default function SingleGymPage() {
           </div>
         )}
         {nav === "trainers" && (
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 md:gap-10 gap-1 sm:gap-5 mx-3 mb-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 md:gap-5 gap-1 sm:gap-5 mx-3 mb-5">
             {trainers.map((trainer) => (
               <div
                 key={trainer.name}
