@@ -13,7 +13,6 @@ import Image from "next/image";
 import {
   BsFillLightningFill,
   BsInstagram,
-  BsPeople,
   BsStarFill,
   BsTiktok,
   BsTwitterX,
@@ -94,7 +93,7 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { type: "spring", stiffness: 100, damping: 12 },
+    transition: { type: "spring" as const, stiffness: 100, damping: 12 },
   },
 };
 
@@ -336,8 +335,8 @@ export default function TrainerPage() {
               <div className="text-5xl mb-4">🔍</div>
               <h3 className="text-xl font-semibold mb-2">No trainers found</h3>
               <p className="text-gray-400">
-                Try adjusting your search or filter to find what you're looking
-                for.
+                Try adjusting your search or filter to find what you&apos;re
+                looking for.
               </p>
               <Button
                 className="mt-4 bg-green-600 hover:bg-green-700"
