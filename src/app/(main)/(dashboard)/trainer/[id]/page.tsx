@@ -132,7 +132,52 @@ export default function TrainerDashboard() {
     setIsEditing(false);
   };
 
-  const handleChange = (e) => {
+  interface Trainer {
+    name: string;
+    age: number;
+    rating: number;
+    reviews: number;
+    image: string;
+    specialty: string;
+    experience: string;
+    clients: number;
+    location: string;
+    responseTime: string;
+    bio: string;
+    status: "available" | "busy" | "offline";
+    hourlyRate: number;
+    certifications: string[];
+    socialMedia: {
+      instagram: string;
+      facebook: string;
+      twitter: string;
+    };
+  }
+
+  interface Session {
+    id: number;
+    clientName: string;
+    date: string;
+    time: string;
+    duration: string;
+    type: string;
+    status: "confirmed" | "pending";
+  }
+
+  interface Client {
+    id: number;
+    name: string;
+    joinDate: string;
+    sessionsCompleted: number;
+    progress: "Excellent" | "Good" | "Very Good" | "Fair";
+    avatar: string;
+  }
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.target;
     setEditedTrainer({ ...editedTrainer, [name]: value });
   };
