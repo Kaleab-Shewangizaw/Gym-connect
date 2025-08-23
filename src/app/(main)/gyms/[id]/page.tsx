@@ -1,9 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-
 import { Button } from "@/components/ui/button";
-import { Calendar, Heart, MapPin, Star } from "lucide-react";
+import { Calendar, Heart, MapPin, Star, ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import {
   BsFacebook,
@@ -14,6 +13,8 @@ import {
 } from "react-icons/bs";
 import { useState } from "react";
 import { FaFacebookF } from "react-icons/fa";
+import Link from "next/link";
+
 const gym = {
   name: "Iron Paradise",
   image: "/Gym-images/g1.jpg",
@@ -30,7 +31,13 @@ const gym = {
     "/Gym-images/g1.jpg",
     "/Gym-images/g1.jpg",
   ],
+  hours: {
+    weekdays: "5:00 AM - 11:00 PM",
+    weekends: "7:00 AM - 9:00 PM",
+  },
+  amenities: ["Locker Rooms", "Showers", "Wi-Fi", "Parking", "Protein Bar"],
 };
+
 const trainers = [
   {
     name: "Alex Carter",
@@ -75,170 +82,316 @@ const trainers = [
 ];
 
 export default function SingleGymPage() {
-  const [nav, setNav] = useState("images");
+  const [nav, setNav] = useState("overview");
+  const [activeImage, setActiveImage] = useState(0);
 
   return (
-    <div className="text-white mt-16 pt-3 ">
-      <motion.div
-        variants={{
-          hidden: { opacity: 0, y: 30, scale: 0.9 },
-          visible: {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            transition: { type: "spring", stiffness: 100, damping: 12 },
-          },
-        }}
-        className="bg-gray-900/70 rounded-xl overflow-hidden border  transition-all duration-300 group"
-      >
-        <div className="relative h-50 md:h-60 overflow-hidden">
-          <Image
-            src={gym.image}
-            alt={gym.name}
-            fill
-            className="object-cover transition-transform duration-500"
-          />
+    <div className="text-white mt-16 pt-3 pb-10 max-w-7xl mx-auto px-4">
+      {/* Back button */}
+      <Link href="/gyms" className="inline-block mb-4">
+        <Button
+          variant="ghost"
+          className="flex items-center gap-2 text-gray-400 hover:text-white pl-0"
+        >
+          <ChevronLeft size={16} />
+          Back to Gyms
+        </Button>
+      </Link>
 
-          <div className="absolute bottom-4 left-4 bg-gray-900/80 text-white text-xl font-bold px-4 py-1 rounded-full flex items-center gap-1">
-            {gym.name}
-          </div>
-          {/* <div className="absolute top-4 right-4 bg-gray-900/80 text-white text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1">
-            <MapPin className="w-3 h-3" /> {gym.location}
-          </div> */}
-          <div className="absolute bottom-4 right-4 flex gap-2">
-            <div className=" bg-gray-900/80 text-white text-lg hover:scale-105 transition-all duration-200 cursor-pointer hover:bg-green-900/90 font-medium p-2 rounded-full ">
-              <BsTiktok />
+      {/* Gym header */}
+      <div className="flex flex-col md:flex-row gap-6 mb-8">
+        <div className="md:w-2/3">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="relative h-64 md:h-80 rounded-xl overflow-hidden"
+          >
+            <Image
+              src={gym.images[activeImage]}
+              alt={gym.name}
+              fill
+              className="object-cover"
+            />
+            <div className="absolute bottom-4 left-4 bg-gray-900/80 text-white text-xl font-bold px-4 py-2 rounded-full">
+              {gym.name}
             </div>
-            <div className=" bg-gray-900/80 text-white text-lg hover:scale-105 transition-all duration-200 cursor-pointer hover:bg-green-900/90 font-medium p-2 rounded-full ">
-              <BsInstagram />
+            <div className="absolute top-4 right-4 flex gap-2">
+              {gym.images.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveImage(index)}
+                  className={`w-3 h-3 rounded-full ${
+                    activeImage === index ? "bg-green-500" : "bg-gray-400"
+                  }`}
+                />
+              ))}
             </div>
-            <div className=" bg-gray-900/80 text-white text-lg hover:scale-105 transition-all duration-200 cursor-pointer hover:bg-green-900/90 font-medium p-2 rounded-full ">
-              <BsTwitterX />
-            </div>
-            <div className=" bg-gray-900/80 text-white text-lg hover:scale-105 transition-all duration-200 cursor-pointer hover:bg-green-900/90 font-medium p-2 rounded-full ">
-              <BsFacebook />
-            </div>
+          </motion.div>
+
+          {/* Image thumbnails */}
+          <div className="flex gap-2 mt-3 overflow-x-auto pb-2">
+            {gym.images.map((image, index) => (
+              <div
+                key={index}
+                className={`relative h-16 w-16 min-w-[4rem] rounded-md overflow-hidden cursor-pointer border-2 ${
+                  activeImage === index
+                    ? "border-green-500"
+                    : "border-transparent"
+                }`}
+                onClick={() => setActiveImage(index)}
+              >
+                <Image
+                  src={image}
+                  alt="Gym thumbnail"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="p-4">
-          <div className="flex justify-between items-start mb-2">
-            <p className="text-gray-400 text-sm mb-3 line-clamp-2">
-              {gym.desc}
-            </p>
-            <span className="text-2xl font-bold text-green-400">
-              ${gym.price}
-            </span>
+        <div className="md:w-1/3 bg-gray-900/70 backdrop-blur-sm rounded-xl p-5 border border-gray-800 h-fit">
+          <div className="flex justify-between items-start mb-4">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <div className="bg-green-800/60 text-white text-sm font-bold px-2 py-1 rounded-full flex items-center gap-1">
+                  <BsStarFill className="text-yellow-300" /> {gym.rating}
+                </div>
+                <div className="bg-gray-800 text-white text-sm font-medium px-2 py-1 rounded-full flex items-center gap-1">
+                  <MapPin className="w-3 h-3" /> {gym.location}
+                </div>
+              </div>
+              <h1 className="text-2xl font-bold">{gym.name}</h1>
+              <p className="text-gray-400 text-sm mt-1">{gym.desc}</p>
+            </div>
           </div>
 
-          <div className="flex justify-between items-start mb-2">
-            <div className="flex flex-wrap gap-1 mb-4">
+          <div className="border-t border-gray-800 pt-4 mt-4">
+            <div className="flex justify-between items-center mb-4">
+              <span className="text-2xl font-bold text-green-400">
+                ${gym.price}
+              </span>
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="text-gray-300 border-gray-600 hover:bg-gray-800"
+                >
+                  <Heart className="w-4 h-4" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="text-gray-300 border-gray-600 hover:bg-gray-800"
+                >
+                  <Star className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+
+            <Button
+              className={`w-full ${
+                gym.available
+                  ? "bg-green-600 hover:bg-green-700"
+                  : "bg-gray-700 cursor-not-allowed"
+              }`}
+              disabled={!gym.available}
+              size="lg"
+            >
+              <Calendar className="w-5 h-5 mr-2" />
+              {gym.booked
+                ? "Booked"
+                : gym.available
+                ? "Book Now"
+                : "Fully Booked"}
+            </Button>
+          </div>
+
+          {/* Social links */}
+          <div className="flex gap-3 mt-5 justify-center">
+            <a
+              href="#"
+              className="bg-gray-800 p-2 rounded-full hover:bg-pink-600 transition-colors"
+            >
+              <BsInstagram />
+            </a>
+            <a
+              href="#"
+              className="bg-gray-800 p-2 rounded-full hover:bg-blue-600 transition-colors"
+            >
+              <FaFacebookF />
+            </a>
+            <a
+              href="#"
+              className="bg-gray-800 p-2 rounded-full hover:bg-gray-700 transition-colors"
+            >
+              <BsTwitterX />
+            </a>
+            <a
+              href="#"
+              className="bg-gray-800 p-2 rounded-full hover:bg-black transition-colors"
+            >
+              <BsTiktok />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Navigation tabs */}
+      <div className="flex border-b border-gray-800 mb-6">
+        <button
+          className={`px-4 py-3 font-medium transition-colors relative ${
+            nav === "overview"
+              ? "text-green-400"
+              : "text-gray-400 hover:text-white"
+          }`}
+          onClick={() => setNav("overview")}
+        >
+          Overview
+          {nav === "overview" && (
+            <motion.div
+              className="absolute bottom-0 left-0 w-full h-0.5 bg-green-500"
+              layoutId="navIndicator"
+            />
+          )}
+        </button>
+        <button
+          className={`px-4 py-3 font-medium transition-colors relative ${
+            nav === "trainers"
+              ? "text-green-400"
+              : "text-gray-400 hover:text-white"
+          }`}
+          onClick={() => setNav("trainers")}
+        >
+          Trainers
+          {nav === "trainers" && (
+            <motion.div
+              className="absolute bottom-0 left-0 w-full h-0.5 bg-green-500"
+              layoutId="navIndicator"
+            />
+          )}
+        </button>
+        <button
+          className={`px-4 py-3 font-medium transition-colors relative ${
+            nav === "photos"
+              ? "text-green-400"
+              : "text-gray-400 hover:text-white"
+          }`}
+          onClick={() => setNav("photos")}
+        >
+          Photos
+          {nav === "photos" && (
+            <motion.div
+              className="absolute bottom-0 left-0 w-full h-0.5 bg-green-500"
+              layoutId="navIndicator"
+            />
+          )}
+        </button>
+      </div>
+
+      {/* Content based on selected tab */}
+      {nav === "overview" && (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="md:col-span-2 bg-gray-900/70 backdrop-blur-sm rounded-xl p-5 border border-gray-800">
+            <h2 className="text-xl font-bold mb-4">About</h2>
+            <p className="text-gray-300 mb-6">{gym.desc}</p>
+
+            <h2 className="text-xl font-bold mb-4">Equipment & Facilities</h2>
+            <div className="flex flex-wrap gap-2 mb-6">
               {gym.equipment.map((item, i) => (
                 <span
                   key={i}
-                  className="bg-gray-800 text-gray-300 text-xs px-2 py-1 rounded"
+                  className="bg-gray-800 text-gray-300 text-sm px-3 py-1.5 rounded-full"
                 >
                   {item}
                 </span>
               ))}
             </div>
-            <div className="flex gap-2">
-              <div className=" bg-gray-900/80 text-white text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1">
-                <MapPin className="w-3 h-3" /> {gym.location}
-              </div>
-              <div className=" bg-green-800/60 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
-                <BsStarFill className="text-yellow-300" /> {gym.rating}
-              </div>
+
+            <h2 className="text-xl font-bold mb-4">Amenities</h2>
+            <div className="flex flex-wrap gap-2">
+              {gym.amenities.map((item, i) => (
+                <span
+                  key={i}
+                  className="bg-blue-900/40 text-blue-200 text-sm px-3 py-1.5 rounded-full"
+                >
+                  {item}
+                </span>
+              ))}
             </div>
           </div>
 
-          <div className="flex justify-between items-center">
-            <div className="flex gap-2 ">
-              <Button
-                variant="ghost"
-                className={`text-gray-300 hover:text-white  px-2 py-2 rounded-lg font-medium transition-colors relative ${
-                  nav === "images"
-                    ? "bg-green-600/70 hover:bg-green-600/70"
-                    : ""
-                }`}
-                onClick={() => {
-                  setNav("images");
-                }}
-              >
-                Images
-              </Button>
-
-              <Button
-                variant="ghost"
-                className={`text-gray-300 hover:text-white  px-2 py-2 rounded-lg font-medium transition-colors relative ${
-                  nav === "trainers"
-                    ? "bg-green-600/70 hover:bg-green-600/70"
-                    : ""
-                }`}
-                onClick={() => {
-                  setNav("trainers");
-                }}
-              >
-                Trainers
-              </Button>
+          <div className="bg-gray-900/70 backdrop-blur-sm rounded-xl p-5 border border-gray-800 h-fit">
+            <h2 className="text-xl font-bold mb-4">Hours</h2>
+            <div className="space-y-3">
+              <div className="flex justify-between">
+                <span className="text-gray-400">Weekdays</span>
+                <span className="font-medium">{gym.hours.weekdays}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">Weekends</span>
+                <span className="font-medium">{gym.hours.weekends}</span>
+              </div>
             </div>
-            <div className="flex gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                className="text-gray-300 border-gray-600 hover:bg-gray-800"
-              >
-                <Heart className="w-4 h-4 mr-1" /> Save
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                className="text-gray-300 border-gray-600 hover:bg-gray-800"
-              >
-                <Star className="w-4 h-4 mr-1" /> Rate
-              </Button>
-              <Button
-                size="sm"
-                className={`${
-                  gym.available
-                    ? "bg-green-600 hover:bg-green-700 text-gray-300"
-                    : "bg-gray-700 cursor-not-allowed"
-                }`}
-                disabled={!gym.available}
-              >
-                {gym.booked
-                  ? "Booked"
-                  : gym.available
-                  ? "Book"
-                  : "Fully Booked"}
-              </Button>
+
+            <h2 className="text-xl font-bold mt-6 mb-4">Location</h2>
+            <div className="flex items-start gap-2 text-gray-300">
+              <MapPin className="w-5 h-5 mt-0.5 text-green-400 flex-shrink-0" />
+              <span>{gym.location}</span>
+            </div>
+
+            <div className="mt-4 bg-gray-800 rounded-lg h-40">
+              {/* Map placeholder */}
+              <div className="w-full h-full flex items-center justify-center text-gray-500">
+                Map would appear here
+              </div>
             </div>
           </div>
         </div>
-        {nav === "images" && (
-          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 mx-3 mb-7">
-            {gym.images.map((image, i) => (
-              <div key={i} className="rounded-md overflow-hidden">
-                <div className="relative h-55 md:h-80 overflow-hidden">
-                  <Image
-                    src={image}
-                    alt="image"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
+      )}
+
+      {nav === "photos" && (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {gym.images.map((image, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: i * 0.1 }}
+              className="rounded-xl overflow-hidden aspect-square cursor-pointer"
+              onClick={() => {
+                setActiveImage(i);
+                setNav("overview");
+              }}
+            >
+              <div className="relative h-full w-full overflow-hidden">
+                <Image
+                  src={image}
+                  alt="Gym image"
+                  fill
+                  className="object-cover hover:scale-105 transition-transform duration-300"
+                />
               </div>
-            ))}
-          </div>
-        )}
-        {nav === "trainers" && (
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 md:gap-5 gap-1 sm:gap-5 mx-3 mb-5">
+            </motion.div>
+          ))}
+        </div>
+      )}
+
+      {nav === "trainers" && (
+        <div>
+          <h2 className="text-xl font-bold mb-6">Our Trainers</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {trainers.map((trainer) => (
-              <div
+              <motion.div
                 key={trainer.name}
-                className="bg-gray-900/70 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-800 hover:border-green-400/30 transition-all duration-300  flex flex-col"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="bg-gray-900/70 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-800 hover:border-green-400/30 transition-all duration-300 flex flex-col"
               >
-                <div className="relative h-70 md:h-80 overflow-hidden">
+                <div className="relative h-60 overflow-hidden">
                   <Image
                     src={trainer.image}
                     alt={trainer.name}
@@ -251,19 +404,18 @@ export default function SingleGymPage() {
                 </div>
 
                 <div className="p-4 flex flex-col flex-grow">
-                  <h4 className="text-lg font-bold text-white group-hover:text-green-300 transition-colors mb-1">
+                  <h4 className="text-lg font-bold text-white mb-1">
                     {trainer.name}
                   </h4>
 
                   <div className="flex items-center text-gray-400 text-sm mb-3">
-                    <span className="mr-3">
-                      {trainer.experience} experience
-                    </span>
-                    <span>• {trainer.clients}+ clients</span>
+                    <span>{trainer.experience} experience</span>
+                    <span className="mx-2">•</span>
+                    <span>{trainer.clients}+ clients</span>
                   </div>
 
                   <div className="flex flex-wrap gap-1 mb-4">
-                    {trainer.skills.map((skill, i) => (
+                    {trainer.skills.slice(0, 2).map((skill, i) => (
                       <span
                         key={i}
                         className="bg-blue-900/40 text-blue-200 text-xs px-2 py-1 rounded"
@@ -271,6 +423,11 @@ export default function SingleGymPage() {
                         {skill}
                       </span>
                     ))}
+                    {trainer.skills.length > 2 && (
+                      <span className="bg-gray-800 text-gray-300 text-xs px-2 py-1 rounded">
+                        +{trainer.skills.length - 2}
+                      </span>
+                    )}
                   </div>
 
                   <div className="mt-auto flex flex-col gap-2">
@@ -278,52 +435,46 @@ export default function SingleGymPage() {
                       size="sm"
                       className="bg-green-600 hover:bg-green-700"
                     >
-                      <Calendar className="sm:w-4 h-4 mr-1" /> Book Session
+                      <Calendar className="w-4 h-4 mr-1" /> Book Session
                     </Button>
 
-                    <div className="flex justify-between items-center ">
+                    <div className="flex justify-between items-center">
                       <Button
                         variant="outline"
                         size="sm"
-                        className="text-gray-300 border-gray-600 hover:bg-gray-800 text-xs w-full sm:w-auto"
+                        className="text-gray-300 border-gray-600 hover:bg-gray-800 text-xs"
                       >
                         View Profile
                       </Button>
 
-                      <div className="hidden sm:flex gap-2 text-gray-400">
+                      <div className="flex gap-2 text-gray-400">
                         <a
                           href="#"
                           className="hover:text-blue-400 transition-colors"
                         >
-                          <BsInstagram />
+                          <BsInstagram size={14} />
                         </a>
                         <a
                           href="#"
                           className="hover:text-blue-500 transition-colors"
                         >
-                          <FaFacebookF />
+                          <FaFacebookF size={14} />
                         </a>
                         <a
                           href="#"
                           className="hover:text-gray-300 transition-colors"
                         >
-                          <BsTwitterX />
-                        </a>
-                        <a
-                          href="#"
-                          className="hover:text-pink-500 transition-colors"
-                        >
-                          <BsTiktok />
+                          <BsTwitterX size={14} />
                         </a>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
-        )}
-      </motion.div>
+        </div>
+      )}
     </div>
   );
 }
