@@ -26,4 +26,7 @@ export interface Trainer {
   skills: string[];
   clients: number;
   experience: string;
+  available: boolean;
+  price: string;
+  location: string;
 }
