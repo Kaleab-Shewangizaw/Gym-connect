@@ -3,7 +3,7 @@ import FooterSection from "./LandingPageSections/Footer";
 import HeroSection from "./LandingPageSections/Hero";
 import HowItWorksSection from "./LandingPageSections/HowItWorks";
 import HeroNavbar from "./LandingPageSections/Navbar";
-import TestimonialsSection from "./LandingPageSections/Testimonials";
+// import TestimonialsSection from "./LandingPageSections/Testimonials";
 import WhyUsSection from "./LandingPageSections/WhyUs";
 
 export default function Home() {
@@ -14,7 +14,7 @@ export default function Home() {
       <HowItWorksSection />
       <FeaturedSection />
       <WhyUsSection />
-      <TestimonialsSection />
+      {/* <TestimonialsSection /> */}
       <FooterSection />
     </div>
   );
