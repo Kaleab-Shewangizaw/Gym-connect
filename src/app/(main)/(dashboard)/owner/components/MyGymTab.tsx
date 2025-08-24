@@ -1,6 +1,37 @@
 import { Button } from "@/components/ui/button";
-import { Edit3, Plus, Save, Trash2 } from "lucide-react";
+import { Edit3, Plus, Save, Trash2, X } from "lucide-react";
 import Image from "next/image";
+
+type Gym = {
+  image: string;
+  name: string;
+  price: string;
+  location: string;
+  address: string;
+  desc: string;
+  hours: {
+    weekdays: string;
+    weekends: string;
+  };
+  equipment: string[];
+  amenities: string[];
+  images: string[];
+};
+
+type MyGymTabProps = {
+  isEditingGym: boolean;
+  handleCancelGym: () => void;
+  handleSaveGym: () => void;
+  setIsEditingGym: (val: boolean) => void;
+  editedGym: Gym;
+  newImage: string;
+  setNewImage: (val: string) => void;
+  handleRemoveImage: (index: number) => void;
+  handleAddImage: () => void;
+  gym: Gym;
+  setEditedGym: (gym: Gym) => void;
+  handleGymChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+};
 
 export default function MyGymTab({
   isEditingGym,
@@ -15,7 +46,7 @@ export default function MyGymTab({
   gym,
   setEditedGym,
   handleGymChange,
-}) {
+}: MyGymTabProps) {
   return (
     <div className="bg-gray-800/40 backdrop-blur-sm rounded-xl p-6 border border-gray-700">
       <div className="flex justify-between items-start mb-6">

@@ -1,7 +1,33 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
-export default function OverviewTab({ bookingsData, setActiveTab, gym }) {
+type Booking = {
+  id: string | number;
+  clientName: string;
+  service: string;
+  date: string;
+  time?: string;
+  status: string;
+  amount?: string | number;
+};
+
+type Gym = {
+  image: string;
+  name: string;
+  location: string;
+};
+
+type OverviewTabProps = {
+  bookingsData: Booking[];
+  setActiveTab: (tab: string) => void;
+  gym: Gym;
+};
+
+export default function OverviewTab({
+  bookingsData,
+  setActiveTab,
+  gym,
+}: OverviewTabProps) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <div className="lg:col-span-2">

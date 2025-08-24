@@ -184,12 +184,12 @@ export default function GymOwnerDashboard() {
     setIsEditingProfile(false);
   };
 
-  const handleGymChange = (e) => {
+  const handleGymChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setEditedGym({ ...editedGym, [name]: value });
   };
 
-  const handleOwnerChange = (e) => {
+  const handleOwnerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setEditedOwner({ ...editedOwner, [name]: value });
   };
