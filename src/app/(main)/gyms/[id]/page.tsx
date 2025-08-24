@@ -4,9 +4,8 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Calendar, Heart, MapPin, Star, ChevronLeft } from "lucide-react";
 import Image from "next/image";
-import { BsInstagram, BsStarFill, BsTiktok, BsTwitterX } from "react-icons/bs";
+import { BsStarFill } from "react-icons/bs";
 import { useState } from "react";
-import { FaFacebookF } from "react-icons/fa";
 import Link from "next/link";
 import TrainerCard from "@/app/MainSections/TrainerCard";
 
@@ -78,15 +77,14 @@ const trainers = [
 
 export default function SingleGymPage() {
   const [nav, setNav] = useState("overview");
-  const [activeImage, setActiveImage] = useState(0);
 
   return (
-    <div className="text-white mt-16 pt-3 pb-10 max-w-7xl mx-auto px-4">
+    <div className="text-white mt-16 pt-3 pb-10  mx-auto ">
       {/* Back button */}
       <Link href="/gyms" className="inline-block mb-4">
         <Button
           variant="ghost"
-          className="flex items-center gap-2 text-gray-400 hover:text-white pl-0"
+          className="text-gray-300 border-gray-600 bg-gray-900 hover:bg-gray-600 hover:text-gray-300"
         >
           <ChevronLeft size={16} />
           Back to Gyms
@@ -103,7 +101,7 @@ export default function SingleGymPage() {
             className="relative h-64 md:h-80 rounded-xl overflow-hidden"
           >
             <Image
-              src={gym.images[activeImage]}
+              src={gym.image}
               alt={gym.name}
               fill
               className="object-cover"
@@ -111,40 +109,7 @@ export default function SingleGymPage() {
             <div className="absolute bottom-4 left-4 bg-gray-900/80 text-white text-xl font-bold px-4 py-2 rounded-full">
               {gym.name}
             </div>
-            <div className="absolute top-4 right-4 flex gap-2">
-              {gym.images.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setActiveImage(index)}
-                  className={`w-3 h-3 rounded-full ${
-                    activeImage === index ? "bg-green-500" : "bg-gray-400"
-                  }`}
-                />
-              ))}
-            </div>
           </motion.div>
-
-          {/* Image thumbnails */}
-          <div className="flex gap-2 mt-3 overflow-x-auto pb-2">
-            {gym.images.map((image, index) => (
-              <div
-                key={index}
-                className={`relative h-16 w-16 min-w-[4rem] rounded-md overflow-hidden cursor-pointer border-2 ${
-                  activeImage === index
-                    ? "border-green-500"
-                    : "border-transparent"
-                }`}
-                onClick={() => setActiveImage(index)}
-              >
-                <Image
-                  src={image}
-                  alt="Gym thumbnail"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            ))}
-          </div>
         </div>
 
         <div className="md:w-1/3 bg-gray-900/70 backdrop-blur-sm rounded-xl p-5 border border-gray-800 h-fit">
@@ -172,14 +137,14 @@ export default function SingleGymPage() {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="text-gray-300 border-gray-600 hover:bg-gray-800"
+                  className="text-gray-300 border-gray-600 bg-gray-900 hover:bg-gray-600 hover:text-gray-300"
                 >
                   <Heart className="w-4 h-4" />
                 </Button>
                 <Button
                   variant="outline"
                   size="icon"
-                  className="text-gray-300 border-gray-600 hover:bg-gray-800"
+                  className="text-gray-300 border-gray-600 bg-gray-900 hover:bg-gray-600 hover:text-gray-300"
                 >
                   <Star className="w-4 h-4" />
                 </Button>
@@ -203,95 +168,52 @@ export default function SingleGymPage() {
                 : "Fully Booked"}
             </Button>
           </div>
-
-          {/* Social links */}
-          <div className="flex gap-3 mt-5 justify-center">
-            <a
-              href="#"
-              className="bg-gray-800 p-2 rounded-full hover:bg-pink-600 transition-colors"
-            >
-              <BsInstagram />
-            </a>
-            <a
-              href="#"
-              className="bg-gray-800 p-2 rounded-full hover:bg-blue-600 transition-colors"
-            >
-              <FaFacebookF />
-            </a>
-            <a
-              href="#"
-              className="bg-gray-800 p-2 rounded-full hover:bg-gray-700 transition-colors"
-            >
-              <BsTwitterX />
-            </a>
-            <a
-              href="#"
-              className="bg-gray-800 p-2 rounded-full hover:bg-black transition-colors"
-            >
-              <BsTiktok />
-            </a>
-          </div>
         </div>
       </div>
 
       {/* Navigation tabs */}
       <div className="flex border-b border-gray-800 mb-6">
-        <button
-          className={`px-4 py-3 font-medium transition-colors relative ${
-            nav === "overview"
-              ? "text-green-400"
-              : "text-gray-400 hover:text-white"
-          }`}
-          onClick={() => setNav("overview")}
-        >
-          Overview
-          {nav === "overview" && (
-            <motion.div
-              className="absolute bottom-0 left-0 w-full h-0.5 bg-green-500"
-              layoutId="navIndicator"
-            />
-          )}
-        </button>
-        <button
-          className={`px-4 py-3 font-medium transition-colors relative ${
-            nav === "trainers"
-              ? "text-green-400"
-              : "text-gray-400 hover:text-white"
-          }`}
-          onClick={() => setNav("trainers")}
-        >
-          Trainers
-          {nav === "trainers" && (
-            <motion.div
-              className="absolute bottom-0 left-0 w-full h-0.5 bg-green-500"
-              layoutId="navIndicator"
-            />
-          )}
-        </button>
-        <button
-          className={`px-4 py-3 font-medium transition-colors relative ${
-            nav === "photos"
-              ? "text-green-400"
-              : "text-gray-400 hover:text-white"
-          }`}
-          onClick={() => setNav("photos")}
-        >
-          Photos
-          {nav === "photos" && (
-            <motion.div
-              className="absolute bottom-0 left-0 w-full h-0.5 bg-green-500"
-              layoutId="navIndicator"
-            />
-          )}
-        </button>
+        {["Overview", "Trainers", "Photos"].map((naver) => {
+          return (
+            <button
+              key={naver}
+              className={`px-4 py-3 font-medium transition-colors relative ${
+                nav === naver
+                  ? "text-green-400"
+                  : "text-gray-400 hover:text-white"
+              }`}
+              onClick={() => setNav(naver)}
+            >
+              {naver}
+              {nav === naver && (
+                <motion.div
+                  className="absolute bottom-0 left-0 w-full h-0.5 bg-green-500"
+                  layoutId="navIndicator"
+                />
+              )}
+            </button>
+          );
+        })}
       </div>
 
       {/* Content based on selected tab */}
-      {nav === "overview" && (
+      {nav === "Overview" && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-2 bg-gray-900/70 backdrop-blur-sm rounded-xl p-5 border border-gray-800">
             <h2 className="text-xl font-bold mb-4">About</h2>
             <p className="text-gray-300 mb-6">{gym.desc}</p>
+
+            <h2 className="text-xl font-bold mb-4">Hours</h2>
+            <div className="space-y-3 mb-2">
+              <div className="flex justify-between">
+                <span className="text-gray-400">Weekdays</span>
+                <span className="font-medium">{gym.hours.weekdays}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">Weekends</span>
+                <span className="font-medium">{gym.hours.weekends}</span>
+              </div>
+            </div>
 
             <h2 className="text-xl font-bold mb-4">Equipment & Facilities</h2>
             <div className="flex flex-wrap gap-2 mb-6">
@@ -304,8 +226,6 @@ export default function SingleGymPage() {
                 </span>
               ))}
             </div>
-
-            <h2 className="text-xl font-bold mb-4">Amenities</h2>
             <div className="flex flex-wrap gap-2">
               {gym.amenities.map((item, i) => (
                 <span
@@ -318,19 +238,7 @@ export default function SingleGymPage() {
             </div>
           </div>
 
-          <div className="bg-gray-900/70 backdrop-blur-sm rounded-xl p-5 border border-gray-800 h-fit">
-            <h2 className="text-xl font-bold mb-4">Hours</h2>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-400">Weekdays</span>
-                <span className="font-medium">{gym.hours.weekdays}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-400">Weekends</span>
-                <span className="font-medium">{gym.hours.weekends}</span>
-              </div>
-            </div>
-
+          <div className="bg-gray-900/70 backdrop-blur-sm rounded-xl p-5 border border-gray-800 h-full">
             <h2 className="text-xl font-bold mt-6 mb-4">Location</h2>
             <div className="flex items-start gap-2 text-gray-300">
               <MapPin className="w-5 h-5 mt-0.5 text-green-400 flex-shrink-0" />
@@ -347,7 +255,9 @@ export default function SingleGymPage() {
         </div>
       )}
 
-      {nav === "photos" && (
+      {/* photos */}
+
+      {nav === "Photos" && (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {gym.images.map((image, i) => (
             <motion.div
@@ -356,10 +266,6 @@ export default function SingleGymPage() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: i * 0.1 }}
               className="rounded-xl overflow-hidden aspect-square cursor-pointer"
-              onClick={() => {
-                setActiveImage(i);
-                setNav("overview");
-              }}
             >
               <div className="relative h-full w-full overflow-hidden">
                 <Image
@@ -374,7 +280,9 @@ export default function SingleGymPage() {
         </div>
       )}
 
-      {nav === "trainers" && (
+      {/* trainers */}
+
+      {nav === "Trainers" && (
         <div>
           <h2 className="text-xl font-bold mb-6">Our Trainers</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
