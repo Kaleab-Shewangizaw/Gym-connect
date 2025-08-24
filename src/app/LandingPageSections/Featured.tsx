@@ -99,6 +99,9 @@ const trainers = [
     skills: ["Strength Training", "HIIT", "Nutrition"],
     clients: 120,
     experience: "5 years",
+    location: "Downtown",
+    price: "$65/hr",
+    available: true,
   },
   {
     name: "Maya Lee",
@@ -107,6 +110,9 @@ const trainers = [
     skills: ["Yoga", "Pilates", "Meditation"],
     clients: 95,
     experience: "7 years",
+    location: "Westside",
+    price: "$70/hr",
+    available: true,
   },
   {
     name: "Jake Smith",
@@ -115,6 +121,9 @@ const trainers = [
     skills: ["Cardio", "CrossFit", "Endurance"],
     clients: 150,
     experience: "4 years",
+    location: "Eastside",
+    price: "$60/hr",
+    available: false,
   },
   {
     name: "Kebedech Chane",
@@ -123,6 +132,9 @@ const trainers = [
     skills: ["Bodybuilding", "Powerlifting", "Flexibility"],
     clients: 200,
     experience: "8 years",
+    location: "Northside",
+    price: "$75/hr",
+    available: true,
   },
   {
     name: "Demelew",
@@ -131,6 +143,9 @@ const trainers = [
     skills: ["Calisthenics", "Functional Training", "Mobility"],
     clients: 85,
     experience: "6 years",
+    location: "Southside",
+    price: "$65/hr",
+    available: true,
   },
 ];
 
