@@ -13,13 +13,12 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-interface Session {
+interface Notfications {
   id: string;
   gymName: string;
-  trainerName: string;
+  news: string;
   date: string;
-  time: string;
-  status: "upcoming" | "completed" | "cancelled";
+  status: "new" | "old";
 }
 
 interface Gym {
@@ -39,7 +38,7 @@ interface Trainer {
 export default function MemberDashboard() {
   const params = useParams();
   const memberId = params.id as string;
-  const [upcomingSessions, setUpcomingSessions] = useState<Session[]>([]);
+  const [notfications, setNotfications] = useState<Notfications[]>([]);
   const [recentGyms, setRecentGyms] = useState<Gym[]>([]);
   const [myTrainer, setMyTrainer] = useState<Trainer | null>(null);
   const [stats, setStats] = useState({
@@ -50,32 +49,24 @@ export default function MemberDashboard() {
 
   useEffect(() => {
     // Mock data - replace with actual API calls
-    setUpcomingSessions([
+    setNotfications([
       {
         id: "1",
         gymName: "Iron Paradise",
-        trainerName: "Alex Johnson",
+        news: "Pools are now available!",
         date: "2024-01-15",
-        time: "10:00 AM",
-        status: "upcoming",
+        status: "new",
       },
       {
         id: "2",
         gymName: "Flex Fitness",
-        trainerName: "Sarah Miller",
+        news: "new trainer added",
         date: "2024-01-17",
-        time: "4:00 PM",
-        status: "upcoming",
+        status: "old",
       },
     ]);
 
     setRecentGyms([
-      {
-        id: "1",
-        name: "Iron Paradise",
-        location: "Downtown",
-        nextSession: "2024-01-15",
-      },
       {
         id: "2",
         name: "Flex Fitness",
@@ -107,9 +98,7 @@ export default function MemberDashboard() {
         className="mb-8"
       >
         <h1 className="text-3xl font-bold text-white mb-2">Welcome Back!</h1>
-        <p className="text-gray-400">
-          Here&apos;s your fitness journey overview
-        </p>
+        <p className="text-gray-400">Here&apos;s your Dashboard</p>
       </motion.div>
 
       {/* Stats Grid */}
@@ -181,43 +170,34 @@ export default function MemberDashboard() {
           className="bg-gray-800/50 rounded-xl p-6 border border-gray-700"
         >
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-semibold text-white">
-              Upcoming Sessions
-            </h2>
-            <Link
-              href={`/member/${memberId}/sessions`}
-              className="text-green-400 hover:text-green-300 text-sm flex items-center gap-1"
-            >
-              View all <ArrowRight className="w-4 h-4" />
-            </Link>
+            <h2 className="text-xl font-semibold text-white">Notfications</h2>
           </div>
 
           <div className="space-y-4">
-            {upcomingSessions.map((session, index) => (
+            {notfications.map((notfication, index) => (
               <motion.div
-                key={session.id}
+                key={notfication.id}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 + index * 0.1 }}
                 className="flex items-center justify-between p-4 bg-gray-700/30 rounded-lg"
               >
                 <div>
-                  <p className="font-medium text-white">{session.gymName}</p>
-                  <p className="text-sm text-gray-400">{session.trainerName}</p>
-                  <p className="text-sm text-gray-400">
-                    {session.date} at {session.time}
+                  <p className="font-medium text-white">
+                    {notfication.gymName}
                   </p>
+                  <p className="text-sm text-gray-400">{notfication.news}</p>
                 </div>
                 <span
                   className={`px-2 py-1 rounded-full text-xs ${
-                    session.status === "upcoming"
+                    notfication.status === "new"
                       ? "bg-green-500/20 text-green-400"
-                      : session.status === "completed"
+                      : notfication.status === "old"
                       ? "bg-gray-500/20 text-gray-400"
                       : "bg-red-500/20 text-red-400"
                   }`}
                 >
-                  {session.status}
+                  {notfication.status}
                 </span>
               </motion.div>
             ))}
@@ -237,7 +217,7 @@ export default function MemberDashboard() {
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-semibold text-white">My Trainer</h2>
                 <Link
-                  href={`/member/${memberId}/my-trainer`}
+                  href={`/home/member/${memberId}/my-trainer`}
                   className="text-green-400 hover:text-green-300 text-sm flex items-center gap-1"
                 >
                   View <ArrowRight className="w-4 h-4" />
@@ -250,10 +230,6 @@ export default function MemberDashboard() {
                 </div>
                 <div>
                   <p className="font-medium text-white">{myTrainer.name}</p>
-                  <p className="text-sm text-gray-400">{myTrainer.specialty}</p>
-                  <p className="text-sm text-gray-400">
-                    Next session: {myTrainer.nextSession}
-                  </p>
                 </div>
               </div>
             </motion.div>
@@ -267,12 +243,12 @@ export default function MemberDashboard() {
             className="bg-gray-800/50 rounded-xl p-6 border border-gray-700"
           >
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold text-white">Recent Gyms</h2>
+              <h2 className="text-xl font-semibold text-white">My Gym</h2>
               <Link
-                href={`/member/${memberId}/my-gyms`}
+                href={`/home/member/${memberId}/my-gyms`}
                 className="text-green-400 hover:text-green-300 text-sm flex items-center gap-1"
               >
-                View all <ArrowRight className="w-4 h-4" />
+                View <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 

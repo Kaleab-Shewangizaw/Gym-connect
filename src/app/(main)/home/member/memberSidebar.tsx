@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, User, Dumbbell, Calendar, Star, Settings } from "lucide-react";
+import { Home, User, Dumbbell, Star, Settings } from "lucide-react";
 
 interface MemberSidebarProps {
   memberId: string;
@@ -13,7 +13,6 @@ const navigationItems = [
   { name: "Dashboard", href: "/home/member/[id]", icon: Home },
   { name: "My Trainer", href: "/home/member/[id]/my-trainer", icon: User },
   { name: "My Gyms", href: "/home/member/[id]/my-gyms", icon: Dumbbell },
-  { name: "Sessions", href: "/home/member/[id]/sessions", icon: Calendar },
   { name: "Favorites", href: "/home/member/[id]/favorites", icon: Star },
   { name: "Settings", href: "/home/member/[id]/settings", icon: Settings },
 ];
