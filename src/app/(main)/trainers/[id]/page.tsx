@@ -217,12 +217,12 @@ export default function TrainerProfilePage() {
         </div>
 
         {/* Right column - Services and booking */}
-        <div className="h-full relative">
+        <div className="h-full relative border rounded-xl overflow-hidden border-gray-800">
           <Image
             src={trainer.image}
             alt="trainer image"
             fill
-            className="object-cover"
+            className="object-contain mt-auto"
           />
         </div>
       </div>
