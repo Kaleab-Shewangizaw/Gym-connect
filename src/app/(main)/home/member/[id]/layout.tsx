@@ -13,9 +13,9 @@ export default function MemberLayout({ children }: MemberLayoutProps) {
   const memberId = params.id as string;
 
   return (
-    <div className="flex">
+    <div className="flex h-full ">
       <MemberSidebar memberId={memberId} />
-      <div className="flex-1 ml-64 p-6">{children}</div>
+      <div className="flex-1  p-6">{children}</div>
     </div>
   );
 }

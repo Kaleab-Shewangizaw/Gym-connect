@@ -21,7 +21,7 @@ export default function MainNavbar() {
   const pathN = path.split("/")[1];
 
   const navItems = [
-    { name: "Home", href: "#" },
+    { name: "Home", href: "/home/member/20" },
     { name: "GYMs", href: "/gyms" },
     { name: "Trainers", href: "/trainers" },
     { name: "Pricing", href: "#pricing" },

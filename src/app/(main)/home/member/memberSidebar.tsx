@@ -3,27 +3,19 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Home,
-  User,
-  Dumbbell,
-  Calendar,
-  Star,
-  Settings,
-  LogOut,
-} from "lucide-react";
+import { Home, User, Dumbbell, Calendar, Star, Settings } from "lucide-react";
 
 interface MemberSidebarProps {
   memberId: string;
 }
 
 const navigationItems = [
-  { name: "Dashboard", href: "/member/[id]", icon: Home },
-  { name: "My Trainer", href: "/member/[id]/my-trainer", icon: User },
-  { name: "My Gyms", href: "/member/[id]/my-gyms", icon: Dumbbell },
-  { name: "Sessions", href: "/member/[id]/sessions", icon: Calendar },
-  { name: "Favorites", href: "/member/[id]/favorites", icon: Star },
-  { name: "Settings", href: "/member/[id]/settings", icon: Settings },
+  { name: "Dashboard", href: "/home/member/[id]", icon: Home },
+  { name: "My Trainer", href: "/home/member/[id]/my-trainer", icon: User },
+  { name: "My Gyms", href: "/home/member/[id]/my-gyms", icon: Dumbbell },
+  { name: "Sessions", href: "/home/member/[id]/sessions", icon: Calendar },
+  { name: "Favorites", href: "/home/member/[id]/favorites", icon: Star },
+  { name: "Settings", href: "/home/member/[id]/settings", icon: Settings },
 ];
 
 export default function MemberSidebar({ memberId }: MemberSidebarProps) {
@@ -33,7 +25,7 @@ export default function MemberSidebar({ memberId }: MemberSidebarProps) {
     <motion.div
       initial={{ x: -20, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
-      className="fixed left-0 top-16 h-screen w-64 bg-gray-900/80 backdrop-blur-md border-r border-gray-800 p-4"
+      className=" left-0 hidden sm:block  w-64 bg-gray-900/80 backdrop-blur-md border-r border-gray-800 pt-16 p-4 "
     >
       {/* Profile Summary */}
       <div className="mb-8 p-4 bg-gray-800/50 rounded-lg">
@@ -49,7 +41,6 @@ export default function MemberSidebar({ memberId }: MemberSidebarProps) {
         {navigationItems.map((item) => {
           const href = item.href.replace("[id]", memberId);
           const isActive = pathname === href;
-
           return (
             <Link
               key={item.name}
@@ -66,14 +57,6 @@ export default function MemberSidebar({ memberId }: MemberSidebarProps) {
           );
         })}
       </nav>
-
-      {/* Logout */}
-      <div className="absolute bottom-4 left-4 right-4">
-        <button className="flex items-center gap-3 p-3 rounded-lg text-gray-400 hover:text-red-400 hover:bg-red-500/10 w-full transition-colors">
-          <LogOut className="w-5 h-5" />
-          <span>Logout</span>
-        </button>
-      </div>
     </motion.div>
   );
 }
