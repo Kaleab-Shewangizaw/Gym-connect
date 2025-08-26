@@ -4,10 +4,7 @@ const barItems = ["Overview", "Clients", "Gyms", "Settings"];
 
 export default function TrainerSidebar({ setActiveTab, activeTab }) {
   return (
-    <div className="w-64 bg-gray-800/40 backdrop-blur-sm min-h-screen border-r border-gray-700">
-      <div className="p-5 border-b border-gray-700">
-        <h1 className="text-xl font-bold">Trainer Portal</h1>
-      </div>
+    <div className="w-64 bg-gray-800/40 backdrop-blur-sm min-h-screen border-r border-gray-700 pt-16">
       <nav className="p-4">
         <ul className="space-y-2">
           {barItems.map((item) => (

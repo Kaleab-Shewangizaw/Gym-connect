@@ -158,15 +158,14 @@ export default function TrainerDashboard() {
   };
 
   return (
-    <div className=" text-white bg-gradient-to-b from-gray-900 to-gray-950">
+    <div className=" text-white bg-gradient-to-b from-gray-900 to-gray-950 pt-16">
       <div className="flex">
         {/* Sidebar */}
         <TrainerSidebar setActiveTab={setActiveTab} activeTab={activeTab} />
 
         {/* Main Content */}
-        <div className="flex-1 p-6 mt-16">
-          <div className="flex justify-between items-center mb-8">
-            <h1 className="text-2xl font-bold">Trainer Dashboard</h1>
+        <div className="flex-1 p-6 ">
+          <div className="flex justify-end items-center mb-8">
             <div className="flex items-center gap-4">
               <button className="p-2 rounded-full bg-gray-800 text-gray-400 hover:text-white">
                 <Bell size={20} />
