@@ -1,10 +1,10 @@
 import { BarChart3, Dumbbell, Settings, Users } from "lucide-react";
 
-const barItems = ["Overview", "Clients", "Gyms", "Settings"];
+const barItems = ["Profile", "Clients", "Gyms", "Settings"];
 
 export default function TrainerSidebar({ setActiveTab, activeTab }) {
   return (
-    <div className="w-64 bg-gray-800/40 backdrop-blur-sm min-h-screen border-r border-gray-700 pt-16">
+    <div className="w-64 bg-gray-800/40 backdrop-blur-sm min-h-screen border-r border-gray-700 pt-16 hidden md:block">
       <nav className="p-4">
         <ul className="space-y-2">
           {barItems.map((item) => (
@@ -17,7 +17,7 @@ export default function TrainerSidebar({ setActiveTab, activeTab }) {
                     : "text-gray-400 hover:bg-gray-700/50"
                 }`}
               >
-                {item === "Overview" ? (
+                {item === "Profile" ? (
                   <BarChart3 size={20} />
                 ) : item === "Clients" ? (
                   <Users size={20} />

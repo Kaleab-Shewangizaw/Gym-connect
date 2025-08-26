@@ -13,7 +13,6 @@ export default function TrainerSettings({
   return (
     <>
       <div className="flex justify-between items-start mb-6">
-        <h2 className="text-xl font-bold">Profile Overview</h2>
         <Button
           onClick={() => setIsEditing(true)}
           className="bg-green-600 hover:bg-green-700 flex items-center gap-2"
