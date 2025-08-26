@@ -3,17 +3,10 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import {
-  Calendar,
-  Dumbbell,
-  User,
-  Star,
-  Clock,
-  ArrowRight,
-} from "lucide-react";
+import { Calendar, Dumbbell, User, Clock, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-interface Notfications {
+interface Favorites {
   id: string;
   gymName: string;
   news: string;
@@ -38,7 +31,7 @@ interface Trainer {
 export default function MemberDashboard() {
   const params = useParams();
   const memberId = params.id as string;
-  const [notfications, setNotfications] = useState<Notfications[]>([]);
+  const [favorites, setfavorites] = useState<Favorites[]>([]);
   const [recentGyms, setRecentGyms] = useState<Gym[]>([]);
   const [myTrainer, setMyTrainer] = useState<Trainer | null>(null);
   const [stats, setStats] = useState({
@@ -49,7 +42,7 @@ export default function MemberDashboard() {
 
   useEffect(() => {
     // Mock data - replace with actual API calls
-    setNotfications([
+    setfavorites([
       {
         id: "1",
         gymName: "Iron Paradise",
@@ -170,34 +163,32 @@ export default function MemberDashboard() {
           className="bg-gray-800/50 rounded-xl p-6 border border-gray-700"
         >
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-semibold text-white">Notfications</h2>
+            <h2 className="text-xl font-semibold text-white">Favorites</h2>
           </div>
 
           <div className="space-y-4">
-            {notfications.map((notfication, index) => (
+            {favorites.map((favorite, index) => (
               <motion.div
-                key={notfication.id}
+                key={favorite.id}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 + index * 0.1 }}
                 className="flex items-center justify-between p-4 bg-gray-700/30 rounded-lg"
               >
                 <div>
-                  <p className="font-medium text-white">
-                    {notfication.gymName}
-                  </p>
-                  <p className="text-sm text-gray-400">{notfication.news}</p>
+                  <p className="font-medium text-white">{favorite.gymName}</p>
+                  <p className="text-sm text-gray-400">{favorite.news}</p>
                 </div>
                 <span
                   className={`px-2 py-1 rounded-full text-xs ${
-                    notfication.status === "new"
+                    favorite.status === "new"
                       ? "bg-green-500/20 text-green-400"
-                      : notfication.status === "old"
+                      : favorite.status === "old"
                       ? "bg-gray-500/20 text-gray-400"
                       : "bg-red-500/20 text-red-400"
                   }`}
                 >
-                  {notfication.status}
+                  {favorite.status}
                 </span>
               </motion.div>
             ))}
@@ -217,10 +208,10 @@ export default function MemberDashboard() {
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-semibold text-white">My Trainer</h2>
                 <Link
-                  href={`/home/member/${memberId}/my-trainer`}
+                  href={`/trainers/${myTrainer.name}`}
                   className="text-green-400 hover:text-green-300 text-sm flex items-center gap-1"
                 >
-                  View <ArrowRight className="w-4 h-4" />
+                  View profile <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
 
@@ -244,12 +235,6 @@ export default function MemberDashboard() {
           >
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-semibold text-white">My Gym</h2>
-              <Link
-                href={`/home/member/${memberId}/my-gyms`}
-                className="text-green-400 hover:text-green-300 text-sm flex items-center gap-1"
-              >
-                View <ArrowRight className="w-4 h-4" />
-              </Link>
             </div>
 
             <div className="space-y-3">
@@ -265,9 +250,11 @@ export default function MemberDashboard() {
                     <p className="font-medium text-white">{gym.name}</p>
                     <p className="text-sm text-gray-400">{gym.location}</p>
                   </div>
-                  <button className="p-2 bg-gray-600/50 rounded-lg hover:bg-gray-600 transition-colors">
-                    <Star className="w-4 h-4 text-yellow-400" />
-                  </button>
+                  <Link href={`/gyms/${gym.name}`}>
+                    <button className="p-2 bg-gray-600/50 rounded-lg hover:bg-gray-600 transition-colors text-white">
+                      View
+                    </button>
+                  </Link>
                 </motion.div>
               ))}
             </div>
